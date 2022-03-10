@@ -1,0 +1,332 @@
+@import "variable";
+html{
+    margin-top: 0!important;
+}
+body {
+    color: @text;
+    direction: rtl;
+    font-family: yekan , arial;
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+    padding: 0;
+    background:#ffffff;
+    font-weight: 500;
+
+}
+.clr{
+    width: 100%;
+    height: 20px;
+    clear: both;
+}
+grammarly-desktop-integration{
+    display: none;
+}
+a {
+     color: @text;
+
+    text-decoration: none;
+   -webkit-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    
+ &:hover{
+  color: @theme;
+ }
+}
+svg{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.show-for-desktop{
+    display: block;
+    @media @media600{
+        display: none;
+    }
+}
+.show-for-mobile{
+    display: none;
+    @media @media600{
+        display: block;
+        &.inb{
+            display: inline-block;
+        }
+    }
+}
+
+
+  .tab-container{
+    >ul{
+
+    >li{
+      display: none;
+      -webkit-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+      &.active{
+        display: block;
+        animation-name: fadeInUp;
+        animation-duration: .4s;
+      }
+    }
+    }
+  }
+select,
+button,
+textarea,
+input,
+label{
+    font-family: yekan;
+    font-size: 16px;
+    &:hover,
+    &:focus{
+        box-shadow: none;
+        outline: none;
+    }
+}
+button{
+    cursor: pointer;
+    transition: all .3s;
+}
+
+p {
+     
+ 
+    font-size: 15px;
+    line-height: 28px;
+     color: @text;
+     margin: 0 0 20px;
+     text-align: justify;
+     
+    
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: yekan; 
+    margin: 0 0 15px;
+    color: @title;
+     -webkit-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+label{
+    color: @text;
+
+}
+ul {
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    li{
+         -webkit-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    }
+}
+img{
+	height: auto;
+    display: block;
+    max-width: 100%;    
+    -webkit-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+
+} 
+
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 30%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+i{
+    font-style: normal!important;
+      -webkit-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 100;
+  src: url('../font/Yekan-Bakh-FaNum-Hairline.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Hairline.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Hairline.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Hairline.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Hairline.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 200;
+  src: url('../font/Yekan-Bakh-FaNum-Thin.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Thin.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Thin.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Thin.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 300;
+  src: url('../font/Yekan-Bakh-FaNum-Light.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Light.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Light.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Light.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 400;
+  src: url('../font/Yekan-Bakh-FaNum-Regular.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Regular.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Regular.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Regular.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 500;
+  src: url('../font/Yekan-Bakh-FaNum-Medium.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 700;
+  src: url('../font/Yekan-Bakh-FaNum-Bold.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Bold.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Bold.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 800;
+  src: url('../font/Yekan-Bakh-FaNum-Heavy.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Heavy.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Heavy.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Heavy.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Heavy.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: yekan;
+  font-style: normal;
+  font-weight: 900;
+  src: url('../font/Yekan-Bakh-FaNum-Fat.eot');
+  src: url('../font/Yekan-Bakh-FaNum-Fat.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
+     url('../font/Yekan-Bakh-FaNum-Fat.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
+     url('../font/Yekan-Bakh-FaNum-Fat.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+     url('../font/Yekan-Bakh-FaNum-Fat.ttf') format('truetype');
+}
+
+
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #898989;
+    opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #898989;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+    color: #898989;
+}
+
+
+
+.owl-carousel{
+    position: relative;
+    .owl-nav{
+        position: absolute;
+        left: -54px;
+        right: -54px;
+        top: 50%;
+        margin-top: -46px;
+        @media @media1500{
+            position: static;
+            width: 150px;
+            margin: 0 auto;
+        }
+        button{
+            width: 42px;
+            height: 42px;
+            text-align: center;
+            line-height: 42px !important;
+            border-radius: 50%;
+            background: #4361EE !important;
+            box-shadow: 0px 10px 35px rgba(0, 0, 0, 0.07);
+            transition: all .3s;
+            *{
+                display: inline-block;
+                vertical-align: middle;
+            }
+            &.owl-next{
+                float: right;
+            }
+            &.owl-prev{
+                float: left;
+            }
+            &:hover{
+            box-shadow: 0px 10px 45px rgba(0, 0, 0, 0.07);
+
+            }
+            &.disabled{
+                display: none;
+            }
+        }
+    }
+}
+
+
+
+.main-title{
+    overflow: hidden;
+    margin-bottom: 30px;
+    span.icon{
+        float: right;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center        ;
+        border-radius: 50%;
+        background: @theme;
+        color: #fff;
+    }
+    h3{
+        margin: 0 70px 4px;
+        font-size: 22px;
+        line-height: 32px;
+        color: #2C2C3D;
+    }
+    .after-title{
+        margin-right: 70px;
+        display: block;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 26px;
+    }
+}
