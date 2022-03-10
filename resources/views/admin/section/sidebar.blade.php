@@ -169,7 +169,7 @@
                         <a href="{{route('repair.index')}}" class="nav-link {{(Route::currentRouteName()=='repair.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
                             <p>
-                                ثبت  s2222222222d2
+                                ثبت  s222222ss2222d2
                             </p>
                         </a>
                     </li>
