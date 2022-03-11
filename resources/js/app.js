@@ -26,7 +26,7 @@ $('#productpart').on('change', function (e) {
 
     var str= {'productpart':ele.val()}
    var res= lara_ajax('/admin/get_part/'+ele.val(),str)
-   $('#part').html(res.body)
+   $('#dls_section').html(res.body)
 
 
     // var res1=  lara_ajax('/admin/get_logger/'+ele.val(),str)
