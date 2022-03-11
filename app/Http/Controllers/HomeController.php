@@ -24,6 +24,7 @@ class HomeController extends Controller
         // $exitCode = Artisan::call('config:cache');
         // $exitCode = Artisan::call('optimize:clear');
         // dd(3);
+        // $exitCode = Artisan::call('optimize');
         Auth::logout();
         alert()->success('شما با موفقیت از حساب کاربری خود خارج شدید ');
         return \redirect()->route('admin.login');

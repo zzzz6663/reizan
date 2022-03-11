@@ -196,8 +196,11 @@ class AdminController extends Controller
     }
     public function get_part(Product $product){
         return response()->json([
-            'body' => view('admin.get_part', compact(['product' ]))->render(),
+            'body' => $product->parts,
         ]);
+        // return response()->json([
+        //     'body' => view('admin.get_part', compact(['product' ]))->render(),
+        // ]);
     }
     public function get_logger(Product $product){
 

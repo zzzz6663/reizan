@@ -293,7 +293,7 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <label for="submit" id="submit">نتیجه:
-                                            {{$barcodes->total()}}
+                                            {{$repairs->total()}}
                                                 عدد
                                             </label>
                                             <input type="submit" id="submit" value="جستو جو" class="btn form-control btn-danger">
@@ -329,7 +329,10 @@
                                     <th>  توضیحات </th>
                                     <th>  اقدامات </th>
                                 </tr>
-                                @foreach($barcodes as $barcode)
+                                @foreach($repairs as $repair)
+                                @php
+                                    $barcode=$repair->barcode;
+                                @endphp
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>
@@ -350,7 +353,7 @@
                                         <td>{{$barcode->info}}</td>
                                         <td>
                                             @can('is_admin')
-                                                <a class="btn btn-outline-secondary" href="{{route('barcode.show',$barcode->id)}}">مشاهده</a>
+                                                <a class="btn btn-outline-secondary" href="{{route('repair.show',$repair->id)}}">مشاهده</a>
                                             @endcan
 {{--                                            <a class="btn btn-outline-primary" href="{{route('barcode.edit',$barcode->id)}}">ویرایش</a>--}}
 {{--                                            <form action="{{route('barcode.destroy',$barcode->id)}}" style="display: inline-block" method="post">--}}
@@ -370,7 +373,7 @@
                         <div class="col-md-12">
 
                             <div class="pagi">
-                                {{ $barcodes->appends(Request::all())->links('admin.pagination') }}
+                                {{ $repairs->appends(Request::all())->links('admin.pagination') }}
                             </div>
 
                         </div>

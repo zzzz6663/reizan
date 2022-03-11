@@ -1862,13 +1862,18 @@ $('#ostan').on('change', function (e) {
   $('#shahr').html(res.body);
 });
 $('#productpart').on('change', function (e) {
-  $('#part').val(null).trigger('change');
+  $('#dls').val(null).trigger('change');
   var ele = $(this);
   var str = {
     'productpart': ele.val()
   };
   var res = lara_ajax('/admin/get_part/' + ele.val(), str);
-  $('#dls').html(res.body); // var res1=  lara_ajax('/admin/get_logger/'+ele.val(),str)
+  console.log(res.body); //    $('#dls').html(res)
+
+  res.body.forEach(function (obj) {
+    var newOption = new Option(obj.name, obj.id, false, false);
+    $('#dls').append(newOption).trigger('change');
+  }); // var res1=  lara_ajax('/admin/get_logger/'+ele.val(),str)
   // $('#logger').html(res1.body)
 });
 

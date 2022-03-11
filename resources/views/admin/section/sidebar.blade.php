@@ -206,6 +206,16 @@
                         </a>
                     </li>
                     @endcan
+                    @can('is_admin')
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="{{route('admin.stock')}}" class="nav-link {{(Route::currentRouteName()=='admin.stock')?'active':''}} ">
+                            <i class="nav-icon fa fa-cogs"></i>
+                            <p>
+                                موجودی
+                            </p>
+                        </a>
+                    </li>
+                    @endcan
 
                 </ul>
             </nav>

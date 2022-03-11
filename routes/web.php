@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 Route::get('/clear', function() {
-    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('optimize');
     $exitCode = Artisan::call('config:cache');
 
-    return 'DONE'; //Return anything
+    return 'sDONE'; //Return anything
 });
 Route::get('/','HomeController@index') ->name('login');
 Route::get('/admin_login','HomeController@admin_login')->name('admin.login');
@@ -64,6 +64,7 @@ Route::middleware(['auth','checkadmin'])->group(function(){
     Route::resource('repair', 'RepairController')->middleware(['adminservice']);;
     Route::resource('poll', 'PollController')->middleware(['can:is_admin']);;
     Route::get('/form','ReportController@form')->name('admin.form')->middleware(['can:is_admin']);;;
+    Route::get('/stock','ReportController@stock')->name('admin.stock')->middleware(['can:is_admin']);;;
     Route::get('/print_factor/{repair}','ReportController@print_factor')->name('repair.print.factor')->middleware(['adminservice']);;;;
     Route::get('/print_customer/{repair}','ReportController@print_customer')->name('repair.print.customer')->middleware(['adminservice']);;;;
 
