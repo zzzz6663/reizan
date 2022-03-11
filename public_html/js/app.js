@@ -1868,7 +1868,7 @@ $('#productpart').on('change', function (e) {
     'productpart': ele.val()
   };
   var res = lara_ajax('/admin/get_part/' + ele.val(), str);
-  $('#dls_section').html(res.body); // var res1=  lara_ajax('/admin/get_logger/'+ele.val(),str)
+  $('#dls').html(res.body); // var res1=  lara_ajax('/admin/get_logger/'+ele.val(),str)
   // $('#logger').html(res1.body)
 });
 
