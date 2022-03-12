@@ -34,7 +34,10 @@
                                                 <select class="form-control" name="product" id="">
                                                     <option value="">یک مورد را انتخاب کنید</option>
                                                     @foreach(\App\Models\Product::all() as $product)
-                                                        <option  {{request('product')==$product->id?'selected':''}} value="{{$product->id}}">{{$product->name}}</option>
+                                                        <option  {{request('product')==$product->id?'selected':''}} value="
+                                                            {{$product->id}}">{{$product->name}}
+                                                            ({{$product->barcodes()->count()}})
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
