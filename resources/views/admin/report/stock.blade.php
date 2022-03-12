@@ -36,7 +36,7 @@
                                                     @foreach(\App\Models\Product::all() as $product)
                                                         <option  {{request('product')==$product->id?'selected':''}} value="
                                                             {{$product->id}}">{{$product->name}}
-                                                            ({{$product->barcodes()->count()}})
+                                                            ({{$product->barcodes()->count()}} بارکد)
                                                         </option>
                                                     @endforeach
                                                 </select>
