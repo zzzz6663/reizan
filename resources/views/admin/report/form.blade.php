@@ -161,10 +161,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-4"> 
                                             <div class="form-group">
                                                 <label for="color">نحوه جستو جو  </label>
-                                                <select class="form-control select2" name="typesearch"  id="typesearch">
+                                                <select class="form-control  " name="typesearch"  id="typesearch">
                                                     <option selected value="">همه دستگاه ها</option>
                                                     <option {{request('typesearch')=='stock'?'selected':''}} value="stock">دارای موجودی</option>
                                                     <option {{request('typesearch')=='failure'?'selected':''}} value="failure">دارای خرابی</option>
