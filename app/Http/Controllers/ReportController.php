@@ -112,12 +112,12 @@ class ReportController extends Controller
         }
         if ($request->dewater) {
             $barcodes->whereHas('repairs', function ($query) use ($request) {
-                $query->where('dewater', 1);
+                $query->orWhere('dewater', 1);
             });
         }
         if ($request->dehit) {
             $barcodes->whereHas('repairs', function ($query) use ($request) {
-                $query->where('dehit', 1);
+                $query->orWhere('dehit', 1);
             });
         }
         if ($request->debar) {
@@ -127,22 +127,22 @@ class ReportController extends Controller
         }
         if ($request->detemp) {
             $barcodes->whereHas('repairs', function ($query) use ($request) {
-                $query->where('detemp', 1);
+                $query->orWhere('detemp', 1);
             });
         }
         if ($request->deopen) {
             $barcodes->whereHas('repairs', function ($query) use ($request) {
-                $query->where('deopen', 1);
+                $query->orWhere('deopen', 1);
             });
         }
         if ($request->demulti) {
             $barcodes->whereHas('repairs', function ($query) use ($request) {
-                $query->where('demulti', 1);
+                $query->orWhere('demulti', 1);
             });
         }
         if ($request->wage) {
             $barcodes->whereHas('repairs', function ($query) use ($request) {
-                $query->where('wage', '>', 0);
+                $query->orWhere('wage', '>', 0);
             });
         }
         if ($request->rcount) {
