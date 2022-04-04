@@ -39,5 +39,7 @@ class Repair extends Model
     {
         return $this->belongsToMany(Part::class)->withPivot('status');
     }
-
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
 }

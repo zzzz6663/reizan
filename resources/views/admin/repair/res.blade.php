@@ -164,6 +164,7 @@
                                         <td>
                                             <a class="btn btn-outline-primary" href="{{route('repair.edit',$repair->id)}}">ویرایش</a>
 {{--                                            <a class="btn btn-outline-success" href="{{route('repair.print.customer',$repair->id)}}">رسید مشتری</a>--}}
+                                            <a class="btn btn-outline-danger" href="{{route('repair.add.images',$repair->id)}}">  تصاویر</a>
                                             <a class="btn btn-outline-danger" href="{{route('repair.print.factor',$repair->id)}}">رسید ها</a>
                                             <a class="btn btn-outline-warning" href="{{route('repair.ready.sms',$repair->id)}}">  ارسال پیامک مراجعه</a>
                                             <a class="btn btn-outline-success" href="{{route('repair.deliver.sms',$repair->id)}}">  ارسال پیامک تحویل</a>

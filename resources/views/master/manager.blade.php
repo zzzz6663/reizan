@@ -43,6 +43,7 @@
     <link rel="stylesheet" href="/manager/dist/css/persian-datepicker.css">
     <link rel="stylesheet" href="/home/css/apexcharts.css">
     <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/lightbox.min.css">
 
 
 </head>
@@ -123,6 +124,7 @@
 <script src="/manager/dist/js/persian-datepicker.min.js"></script>
 <script src="/home/js/apexcharts.min.js"></script>
 <script src="/js/fun.js"></script>
+<script src="/js/lightbox.min.js"></script>
 {{--<script src="/home/js/libd.js"></script>--}}
 
 <script src="{{asset('/js/app.js')}}"></script>

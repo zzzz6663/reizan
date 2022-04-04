@@ -77,4 +77,7 @@ class User extends Authenticatable
     public function repairs(){
         return $this->hasMany(Repair::class);
     }
+    public function images(){
+        return $this->hasMany(Image::class);
+    }
 }

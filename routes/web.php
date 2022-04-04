@@ -57,10 +57,13 @@ Route::middleware(['auth','checkadmin'])->group(function(){
     Route::resource('slider', 'SliderController')->middleware(['can:is_admin']);;
     Route::resource('products.gallery', 'ProductGalleryController')->middleware(['can:is_admin']);;
     Route::resource('barcode', 'BarcodeController') ->middleware(['adminoperator']);;
+    Route::get('/repair_barcode','RepairController@repair_barcode')->name('repair.barcode');;
+
     Route::get('/go_ready_sms/{repair}','RepairController@go_ready_sms')->name('repair.ready.sms')->middleware(['adminservice']);;;;
-    Route::get('/go_deliver_sms/{repair}','RepairController@go_deliver_sms')->name('repair.deliver.sms')->middleware(['adminservice']);;;;
+    Route::get('/go_deliver_sms/{repair}','RepairController@go_deliver_sms')->name('repair.deliver.sms')->middleware(['adminservice']);
 //    Route::get('/deliver_form/{repair}','RepairController@deliver_form')->name('repair.deliver.form')->middleware(['adminservice']);;;;
 //    Route::post('/deliver_submit/{repair}','RepairController@deliver_submit')->name('repair.deliver.submit')->middleware(['adminservice']);;;;
+    Route::any('/add_images/{repair}','RepairController@add_images')->name('repair.add.images')->middleware(['adminservice']);
     Route::resource('repair', 'RepairController')->middleware(['adminservice']);;
     Route::resource('poll', 'PollController')->middleware(['can:is_admin']);;
     Route::get('/form','ReportController@form')->name('admin.form')->middleware(['can:is_admin']);;;

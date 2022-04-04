@@ -385,6 +385,23 @@ return back();
 
 //        $user->notify(new SendSms( $text,$mobile));
     }
+    public function repair_barcode(){
+        return view('admin.repair.barcode');
+    }
+    public function add_images(Request $request , Repair $repair){
+        $user=auth()->user();
+        if($request->isMethod('post')){
+                foreach($request->file('images') as $image)
+                {
+                    $count=$repair->images->count()+1;
+                    $name_img= 'img_'.uniqid().'.'.$image->getClientOriginalExtension();
+                    $image->move(public_path('/src/repair/'),$name_img);
+                    $repair->images()->create(['name' => $name_img,'user_id'=>$user->id]);
+                }
+                alert()->success('تصاویر با موفقیت ساخته شد ');
+        }
+        return view('admin.repair.images',compact(['repair']));
+    }
     public function convert_date( $from){
         $date=explode('-',$from);
         $fmt = numfmt_create('fa', NumberFormatter::DECIMAL);

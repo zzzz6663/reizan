@@ -186,6 +186,14 @@
                     </li>
 
                     @endcanany
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="{{route('repair.barcode')}}" class="nav-link {{(Route::currentRouteName()=='repair.barcode')?'active':''}} ">
+                            <i class="nav-icon fa fa-cogs"></i>
+                            <p>
+                               بارکدخوان
+                            </p>
+                        </a>
+                    </li>
                     @can('is_admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('poll.index')}}" class="nav-link {{(Route::currentRouteName()=='poll.index')?'active':''}} ">

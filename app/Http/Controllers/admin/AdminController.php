@@ -189,6 +189,7 @@ class AdminController extends Controller
         $repairs=  $repairs->latest()->paginate(10) ;
         return view('admin.report.repair_list',compact('repairs'));
     }
+ 
     public function get_shahr(Ostan $ostan){
         return response()->json([
             'body' => view('admin.get_shahr', compact(['ostan' ]))->render(),
