@@ -26,7 +26,7 @@
                                 <script>
                                     function onScanSuccess(decodedText, decodedResult) {
                                 console.log(`Code scanned = ${decodedText}`, decodedResult);
-                                window.location.href = '/repair?code='+${decodedResult}
+                                window.location.href = '/repair?code='+decodedResult
                             }
                             var html5QrcodeScanner = new Html5QrcodeScanner(
                                 "qr-reader", { fps: 10, qrbox: 250 });
