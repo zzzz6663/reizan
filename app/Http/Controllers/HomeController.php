@@ -47,6 +47,7 @@ class HomeController extends Controller
 //        dd(Jalalian::now()->format('Y-m-d H:i:s'));
 //        $text =trim($text);
 //        $user->notify(new SendSms( $text,'09373699317'));
+$exitCode = Artisan::call('optimize');
         return view('home.home');
    }
    public function agency(){
