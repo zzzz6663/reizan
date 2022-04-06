@@ -24,13 +24,36 @@
                                 <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 
                                 <script>
-                                    function onScanSuccess(decodedText, decodedResult) {
+
+
+                            // var html5QrcodeScanner = new Html5QrcodeScanner(
+                            //     "qr-reader", { fps: 10, qrbox: 250 });
+                            // html5QrcodeScanner.render(onScanSuccess);
+
+
+                            const html5QrCode = new Html5Qrcode("qr-reader");
+const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+    console.log(`Code scanned = ${decodedText}`, decodedResult);
+                                window.location.href = '/repair?code2='+decodedText
+                                stopQR();
+                                html5QrcodeScanner.clear()
+};
+const config = { fps: 10, qrbox: { width: 250, height: 250 } };
+
+// If you want to prefer front camera
+
+// If you want to prefer back camera
+html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+
+
+                            function stopQR() { html5QrCode.stop().then((ignore) => {  }).catch((err) => { }); }
+                            function onScanSuccess(decodedText, decodedResult) {
                                 console.log(`Code scanned = ${decodedText}`, decodedResult);
-                                window.location.href = '/repair?code='+decodedText
+                                window.location.href = '/repair?code2='+decodedText
+                                stopQR();
+                                html5QrcodeScanner.clear()
+
                             }
-                            var html5QrcodeScanner = new Html5QrcodeScanner(
-                                "qr-reader", { fps: 10, qrbox: 250 });
-                            html5QrcodeScanner.render(onScanSuccess);
                                 </script>
                                     <a class="btn btn-danger">
                                         برگشت
@@ -46,12 +69,7 @@
                 {{-- <h1>تصاویر  خرابی</h1>
                 <br> --}}
 
-                {{-- @foreach ($repair->images as $image)
-                <div class="col-lg-2">
-                    <a   href="{{$image->img()}}" data-lightbox="roadtrip">
-                    <img src="{{$image->img()}}" height="100%" width="100%" alt=""></a>
-                </div>
-                @endforeach --}}
+
 
 
 

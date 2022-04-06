@@ -42,12 +42,12 @@
                 {{-- <h1>تصاویر  خرابی</h1>
                 <br> --}}
 
-                {{-- @foreach ($repair->images as $image)
+                @foreach ($repair->images as $image)
                 <div class="col-lg-2">
                     <a   href="{{$image->img()}}" data-lightbox="roadtrip">
                     <img src="{{$image->img()}}" height="100%" width="100%" alt=""></a>
                 </div>
-                @endforeach --}}
+                @endforeach
 
 
 

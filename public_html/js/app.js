@@ -1877,6 +1877,9 @@ $('#productpart').on('change', function (e) {
   // $('#logger').html(res1.body)
 });
 
+if ($('.modal').length) {// $('#qr-reader__camera_selection option:last').prop('selected', true);
+}
+
 if ($('.modal').length) {
   $(".modal").iziModal({
     width: 800,
