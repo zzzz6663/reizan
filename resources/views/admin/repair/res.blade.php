@@ -77,9 +77,12 @@
                                             <span class="text-danger">
                                               مشتری:
                                        </span>
+                                       @if ($barcode->customer)
+                                       {{$barcode->customer->name}}
+                                       {{$barcode->customer->family}}
+                                       @endif
 
-                                        {{$barcode->customer->name}}
-                                        {{$barcode->customer->family}}
+
                                     </h5>
                                 </div>
                                 <div class="col-3">
@@ -171,7 +174,7 @@
                                             <form action="{{route('repair.destroy',$repair->id)}}" method="post">
                                             @csrf
                                             @method('delete')
-                                            <input type="submit" value="حذف" class="btn btn-danger">
+                                            <input type="submit"  onclick="return confirm('Are you sure?')" value="حذف" class="btn btn-danger">
                                             </form>
 
                                         </td>

@@ -110,6 +110,7 @@ Route::prefix('admin')->namespace('admin')->group(function(){
 
 //گزارش خرابی
      Route::get('/repair_list','AdminController@repair_list')->name('repair.list')->middleware(['adminservice']);;
+     Route::get('/repair_list2','AdminController@repair_list2')->name('repair.list2')->middleware(['adminservice']);;
     //  کپی محصول
      Route::get('/copy_product/{product}','AdminController@copy_product')->name('copy.product')->middleware(['can:is_admin']);;
 

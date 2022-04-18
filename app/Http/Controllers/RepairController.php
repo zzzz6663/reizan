@@ -29,14 +29,15 @@ class RepairController extends Controller
             }
             if($request->code2 ){
             $barcode=Barcode::whereCode($request->code2)->first();
-            if(  $barcode->repairs->count() > 0 ){
-                return redirect(route('repair.add.images', $barcode->repairs()->latest()->first()->id));
-            }
-            }
             if(!$barcode){
                 alert()->error('بار کد یافت نشد');
                 return back();
             }
+            if(  $barcode->repairs->count() > 0 ){
+                return redirect(route('repair.add.images', $barcode->repairs()->latest()->first()->id));
+            }
+            }
+
             return view('admin.repair.res',compact('barcode'));
         }
         if ($request->search){

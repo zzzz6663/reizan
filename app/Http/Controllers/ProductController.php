@@ -172,7 +172,6 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
         alert()->success('محصول باموفقیت حذف شد ');
         return back();
     }

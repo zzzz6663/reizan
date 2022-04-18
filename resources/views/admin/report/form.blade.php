@@ -161,7 +161,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-4"> 
+                                        <div class="col-4">
                                             <div class="form-group">
                                                 <label for="color">نحوه جستو جو  </label>
                                                 <select class="form-control  " name="typesearch"  id="typesearch">
@@ -312,6 +312,7 @@
                                             <label for="submit" id="submit">دوباره:
                                             </label>
                                             <a href="{{route('admin.form')}}" class="btn btn-warning form-control">ریست کردن</a>
+                                            {{-- <a class="btn btn-danger" onclick="return confirm('Are you sure?')" href="{{route('admin.form')}}"><i class="fa fa-trash"></i></a> --}}
 
                                         </div>
                                     </div>
@@ -367,7 +368,7 @@
 {{--                                            <form action="{{route('barcode.destroy',$barcode->id)}}" style="display: inline-block" method="post">--}}
 {{--                                                @method('delete')--}}
 {{--                                                @csrf--}}
-{{--                                                <input type="submit" value="حذف" class="btn btn-danger">--}}
+{{--                                                <input type="submit"  onclick="return confirm('Are you sure?')" value="حذف" class="btn btn-danger">--}}
 {{--                                            </form>--}}
                                         </td>
                                     </tr>

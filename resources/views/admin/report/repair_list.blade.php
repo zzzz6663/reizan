@@ -154,14 +154,18 @@
                             <table class="table table-hover">
                                 <tbody>
                                 <tr>
-                                    <th>شماره</th>
-                                    <th>کد </th>
+                                    <th>@sortablelink('id')</th>
+                                    <th>@sortablelink(  'barcode.code','code') </th>
                                     <th> همراه مصرف کننده </th>
                                     <th>مالک </th>
                                     <th>وضعیت </th>
                                     <th>محصول </th>
-                                    <th>تاریخ تولید </th>
-                                    <th>تاریخ خروج </th>
+                                    <th>
+                                        @sortablelink('barcode.produce', 'produce')
+                                </th>
+                                    <th>
+                                        @sortablelink('barcode.deliver', 'deliver')
+                                    </th>
                                     <th>  رنگ </th>
                                     <th>  ورژن </th>
                                     <th>   تاریخ ثبت خرابی </th>

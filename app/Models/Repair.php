@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Repair extends Model
 {
 
     use HasFactory;
+    use Sortable;
+
     protected $fillable=['barcode_id','name','tell','shipping'
         ,'address','comment','img1','img2','img3','bar','defect'
         ,'report','redate','wage','explain','dename','dedate',
@@ -25,11 +28,29 @@ class Repair extends Model
         'sms_submit',
 
         ];
+    protected $sortable=['barcode_id','name','tell','shipping'
+        ,'address','comment','img1','img2','img3','bar','defect'
+        ,'report','redate','wage','explain','dename','dedate',
+        'dewater',
+        'dehit',
+        'customer_wage',
+        'debar',
+        'detemp',
+        'user_id',
+        'deopen',
+        'demulti',
+        'status',
+        'sudate',
+        'sms_submit',
+
+        ];
+
+
+    public function barcode(){
+        return $this->belongsTo(Barcode::class);
+    }
     public function user(){
         return $this->belongsTo(User::class)->latest();
-    }
-    public function barcode(){
-        return $this->belongsTo(Barcode::class)->latest();
     }
     public function loggers(){
         return $this->belongsToMany(Logger::class);

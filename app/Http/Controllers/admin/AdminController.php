@@ -120,7 +120,19 @@ class AdminController extends Controller
     }
 
     public function repair_list(Request $request){
+
+
+
+
+
         $repairs=Repair::query();
+        $repairs->with('barcode');
+        // $repairs->with('barcode',function ($query) {
+        //     $query->orderBy('deliver');
+        // });
+
+
+
         if ($request->filter){
             if ($request->from){
                 $request->from=$this->convert_date($request->from);
@@ -185,11 +197,29 @@ class AdminController extends Controller
           $status=$request->status;
           $repairs->whereStatus($status);
         }
-
-        $repairs=  $repairs->latest()->paginate(10) ;
+        // $repairs=  $repairs     ->orderBy('deliver')->get() ;
+        $repairs=  $repairs->sortable()->paginate(10) ;
         return view('admin.report.repair_list',compact('repairs'));
     }
- 
+
+
+
+
+
+    public function repair_list2(Request $request){
+        $repairs = Repair::query();
+        $repairs = $repairs->with('barcode')->orderBy('barcodes.deliver')->paginate(10) ;
+        return view('admin.report.repair_list',compact('repairs'));
+    }
+
+
+
+
+
+
+
+
+
     public function get_shahr(Ostan $ostan){
         return response()->json([
             'body' => view('admin.get_shahr', compact(['ostan' ]))->render(),

@@ -359,7 +359,7 @@
 {{--                                            <form action="{{route('barcode.destroy',$barcode->id)}}" style="display: inline-block" method="post">--}}
 {{--                                                @method('delete')--}}
 {{--                                                @csrf--}}
-{{--                                                <input type="submit" value="حذف" class="btn btn-danger">--}}
+{{--                                                <input type="submit"  onclick="return confirm('Are you sure?')" value="حذف" class="btn btn-danger">--}}
 {{--                                            </form>--}}
                                         </td>
                                     </tr>

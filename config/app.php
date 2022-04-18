@@ -175,7 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Bkwld\Cloner\ServiceProvider::class,
-
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
     ],
 
     /*

@@ -16,7 +16,7 @@
                                     وضعیت
                                 </h1>
                                 <div class="row">
-                                    <div class="col-sm-4 col-md-2">
+                                    <div class="col-sm-2 col-md-2">
                                         <h4 class="text-center">        ثبت اولیه </h4>
 
                                         <div class="color-palette-set text-center">
@@ -24,7 +24,7 @@
                                             {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-2">
+                                    <div class="col-sm-2 col-md-2">
                                         <h4 class="text-center">        ثبت نهایی </h4>
 
                                         <div class="color-palette-set text-center">
@@ -32,7 +32,7 @@
                                             {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
                                         </div>
                                     </div>
-                                    <div class="col-sm-4 col-md-2">
+                                    <div class="col-sm-2 col-md-2">
                                         <h4 class="text-center">        تحویل   </h4>
 
                                         <div class="color-palette-set text-center">
@@ -40,21 +40,23 @@
                                             {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
                                         </div>
                                     </div>
+
                                 </div>
+                                <br>
+                                <br>
                                 <h1>
                                     برگشتی
                                 </h1>
-                                <div class="row">
-                                    <div class="col-sm-4 col-md-2">
-                                        <h4 class="text-center">    مجموع برگشتی ها</h4>
 
+                                <div class="row">
+
+                                    <div class="col-sm-4 col-md-2">
+                                        <h4 class="text-center">    مجموع برگشتی </h4>
                                         <div class="color-palette-set">
                                             <div class="bg-primary disabled color-palette p-1">
                                                     <a href="{{route('barcode.index',['status'=>'all_back'])}}">
                                                         <span>{{\App\Models\Barcode::has('repairs','>',0)->count()}} عدد</span>
-
                                                     </a>
-
                                             </div>
                                             {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
                                         </div>
@@ -66,7 +68,11 @@
                                         <div class="color-palette-set">
                                             <div class="bg-success disabled color-palette p-1">
                                                 <a href="{{route('barcode.index',['status'=>'day_past_back'])}}">
-                                                    <span>{{\App\Models\Barcode::has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subDay())->count()}} عدد</span>
+                                                    <span>{{\App\Models\Barcode::
+                                                    whereHas('repairs',function($query) {
+                                                        $query->where('created_at','=',\Carbon\Carbon::now()->subDay());
+                                                    })
+                                                    ->count()}} عدد</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -77,7 +83,12 @@
                                         <div class="color-palette-set">
                                             <div class="bg-danger disabled color-palette p-1">
                                                 <a href="{{route('barcode.index',['status'=>'week_past_back'])}}">
-                                                    <span>{{\App\Models\Barcode::has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subDay(7))->count()}} عدد</span>
+                                                    {{-- <span>{{\App\Models\Barcode::has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subDays(7))->count()}} عدد</span> --}}
+                                                    <span>{{\App\Models\Barcode::
+                                                        whereHas('repairs',function($query) {
+                                                            $query->whereBetween('created_at', [\Carbon\Carbon::now()->startOfWeek(), \Carbon\Carbon::now()->endOfWeek()]);
+                                                        })
+                                                        ->count()}} عدد</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -88,7 +99,11 @@
                                         <div class="color-palette-set">
                                             <div class="bg-gray disabled color-palette p-1">
                                                 <a href="{{route('barcode.index',['status'=>'month_past_back'])}}">
-                                                    <span>{{\App\Models\Barcode::has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subMonth())->count()}} عدد</span>
+                                                    <span>{{\App\Models\Barcode::
+                                                        whereHas('repairs',function($query) {
+                                                            $query->whereBetween('created_at', [\Carbon\Carbon::now()->startOfMonth(), \Carbon\Carbon::now()->endOfMonth()]);
+                                                        })
+                                                        ->count()}} عدد</span>
                                                 </a>
                                             </div>
                                         </div>
@@ -111,6 +126,41 @@
                             {{--                                <!-- /.col -->--}}
                             {{--                            </div>--}}
                             <!-- /.row -->
+                            </div>
+                        <div class="card-body">
+                            <h1>
+                                خرابی ها
+                            </h1>
+                            <div class="row">
+                                <div class="col-sm-2 col-md-2">
+                                    <h4 class="text-center">           یک بار خرابی   </h4>
+                                    <div class="color-palette-set text-center">
+                                        <a href="{{route('barcode.index',['status'=>'repair_count','count'=>1])}}" class="bg-warning disabled color-palette p-1"><span>{{\App\Models\Barcode::has('repairs','=','1')->count()}} عدد</span></a>
+                                        {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-md-2">
+                                    <h4 class="text-center">           دوبار خرابی   </h4>
+                                    <div class="color-palette-set text-center">
+                                        <a href="{{route('barcode.index',['status'=>'repair_count','count'=>2])}}" class="bg-warning disabled color-palette p-1"><span>{{\App\Models\Barcode::has('repairs','=','2')->count()}} عدد</span></a>
+                                        {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-md-2">
+                                    <h4 class="text-center">             سه بار خرابی   </h4>
+                                    <div class="color-palette-set text-center">
+                                        <a href="{{route('barcode.index',['status'=>'repair_count','count'=>3])}}" class="bg-warning disabled color-palette p-1"><span>{{\App\Models\Barcode::has('repairs','=','3')->count()}} عدد</span></a>
+                                        {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-2 col-md-2">
+                                    <h4 class="text-center">                  چهار بار خرابی   </h4>
+                                    <div class="color-palette-set text-center">
+                                        <a href="{{route('barcode.index',['status'=>'repair_count','count'=>4])}}" class="bg-warning disabled color-palette p-1"><span>{{\App\Models\Barcode::has('repairs','=','4')->count()}} عدد</span></a>
+                                        {{--                                        <div class="bg-primary color-palette"><span>#۳c۸dbc</span></div>--}}
+                                    </div>
+                                </div>
+                            </div>
                             </div>
                         <div class="card-body">
                             <h1>
@@ -148,7 +198,7 @@
                                     <div class="color-palette-set">
                                         <div class="bg-danger disabled color-palette p-1">
                                             <a href="{{route('barcode.index',['status'=>'week_produce'])}}">
-                                                <span>{{\App\Models\Barcode::where('created_at','<',\Carbon\Carbon::now()->subDays(7))->count()}} عدد</span>
+                                                <span>{{\App\Models\Barcode::whereBetween('created_at', [\Carbon\Carbon::now()->startOfWeek(), \Carbon\Carbon::now()->endOfWeek()])->count()}} عدد</span>
                                             </a>
 
                                         </div>
@@ -160,7 +210,7 @@
                                     <div class="color-palette-set">
                                         <div class="bg-gray disabled color-palette p-1">
                                             <a href="{{route('barcode.index',['status'=>'month_produce'])}}">
-                                                <span>{{\App\Models\Barcode::where('created_at','<',\Carbon\Carbon::now()->subMonth())->count()}} عدد</span>
+                                                <span>{{\App\Models\Barcode::whereBetween('created_at', [\Carbon\Carbon::now()->startOfMonth(), \Carbon\Carbon::now()->endOfMonth()])->count()}} عدد</span>
                                             </a>
 
                                         </div>
@@ -193,73 +243,7 @@
 {{--                            </div>--}}
                             <!-- /.row -->
                         </div>
-                            <div class="card-body">
-                                <h1>
-                                    آمار
-                                </h1>
-                                <div class="row">
-                                    <div class="col-sm-4 col-md-2">
-                                        <h4 class="text-center">    مجموع  تولید </h4>
 
-                                        <div class="color-palette-set">
-                                            <div class="bg-primary disabled color-palette p-1">
-                                                <a href="{{route('barcode.index',['status'=>'all_produce'])}}">
-                                                    <span>{{\App\Models\Barcode::whereDate('created_at', \Carbon\Carbon::today())->count()}} عدد</span>
-                                                </a>
-                                                {{-- <span><?php echo e(\App\Models\Barcode::whereDate('created_at', \Carbon\Carbon::today())->count()); ?> عدد</span> --}}
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-2">
-                                        <h4 class="text-center">  مجموع خدمات  </h4>
-                                        <div class="color-palette-set">
-                                            <div class="bg-success disabled color-palette p-1">
-                                                {{-- <span><?php echo e(\App\Models\Repair:: whereDate('created_at', \Carbon\Carbon::today())->count()); ?> عدد</span> --}}
-                                                <a href="{{route('barcode.index',['status'=>'all_service'])}}">
-                                                    <span>{{\App\Models\Barcode::whereDate('created_at', \Carbon\Carbon::today())->count()}} عدد</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4 col-md-2">
-                                        <h4 class="text-center">  مجموع فروش  </h4>
-                                        <div class="color-palette-set">
-                                            <div class="bg-danger disabled color-palette p-1">
-                                                <a href="{{route('barcode.index',['status'=>'all_sell'])}}">
-                                                    <span>{{\App\Models\Barcode::whereDate('sell', \Carbon\Carbon::today())->count()}} عدد</span>
-                                                </a>
-                                                {{-- <span><?php echo e(\App\Models\Barcode::whereDate('sell', \Carbon\Carbon::today())->count()); ?> عدد</span> --}}
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!--                                    <div class="col-sm-4 col-md-2">-->
-                                    <!--                                        <h4 class="text-center">  ماه گذشته  </h4>-->
-                                    <!--                                        <div class="color-palette-set">-->
-                                    <!--                                            <div class="bg-gray disabled color-palette p-1"><span>--><?php //echo e(\App\Models\Barcode::where('created_at','<',\Carbon\Carbon::now()->subMonth())->count()); ?><!-- عدد</span></div>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                <!-- /.row -->
-                            </div>
                         @endcan
 
                         <div class="card-header">
@@ -305,11 +289,11 @@
                             <table class="table table-hover">
                                 <tbody>
                                 <tr>
-                                    <th>شماره</th>
-                                    <th>کد </th>
+                                    <th>@sortablelink('id')</th>
+                                    <th>@sortablelink('code') </th>
                                     <th>محصول </th>
-                                    <th>تاریخ تولید </th>
-                                    <th>تاریخ خروج </th>
+                                    <th>@sortablelink('produce')</th>
+                                    <th>    @sortablelink('deliver') </th>
                                     <th>  رنگ </th>
                                     <th>  ورژن </th>
                                     <th>  مشتری </th>
@@ -323,8 +307,17 @@
                                         <td>{{$barcode->code}}</td>
 
                                         <td>{{isset($barcode->product)?$barcode->product->name:''}}</td>
-                                        <td>{{\Morilog\Jalali\Jalalian::forge($barcode->produce)}}</td>
-                                        <td>{{\Morilog\Jalali\Jalalian::forge($barcode->deliver)}}</td>
+                                        <td>
+                                            @if ($barcode->produce)
+                                            {{\Morilog\Jalali\Jalalian::forge($barcode->produce)}}
+                                            @endif
+                                         </td>
+                                        <td>
+                                            @if ($barcode->deliver)
+                                            {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)}}
+
+                                            @endif
+                                        </td>
                                         <td>  {{implode(', ',$barcode->colores->pluck('name')->toArray())}}</td>
                                         <td>  {{implode(', ',$barcode->versions->pluck('name')->toArray())}}</td>
                                         {{-- <td>{{isset($barcode->version)?$barcode->version->name:'----'}}</td> --}}
@@ -343,7 +336,7 @@
                                             <form action="{{route('barcode.destroy',$barcode->id)}}" style="display: inline-block" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <input type="submit" value="حذف" class="btn btn-danger">
+                                                <input type="submit"  onclick="return confirm('Are you sure?')" value="حذف" class="btn btn-danger">
                                             </form>
                                         </td>
                                     </tr>

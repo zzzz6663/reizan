@@ -20,6 +20,7 @@ class BarcodeController extends Controller
     {
         $barcodes=Barcode::query();
 
+
         if ($request->search){
         //  $barcodes->whereHas('colores',function ($query) use ($request){
         //         $search=$request->search;
@@ -55,7 +56,7 @@ class BarcodeController extends Controller
                     $barcodes->has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subDay());
                     break;
                 case 'week_past_back':
-                    $barcodes->has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subDay(7));
+                    $barcodes->has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subDays(7));
                     break;
                 case 'month_past_back':
                     $barcodes->has('repairs','>',0)->where('created_at','<',\Carbon\Carbon::now()->subMonth());
@@ -84,13 +85,16 @@ class BarcodeController extends Controller
                 case 'sold':
                     $barcodes->where('customer_id','!=',null)->get();
                     break;
+                case 'repair_count':
+                    $barcodes->has('repairs','=',$request->count??0)->get();
+                    break;
             }
         }
         if ($request->all){
             $barcodes->where('customer_id',null);
         }
 
-        $barcodes=  $barcodes->latest()->paginate(10);
+        $barcodes=  $barcodes->sortable()->latest()->paginate(10);
         return view('admin.barcode.all',compact(['barcodes']));
     }
 
