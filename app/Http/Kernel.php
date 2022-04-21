@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'adminaccountant'=> \App\Http\Middleware\AdminAccountant::class,
         'adminoperator'=> \App\Http\Middleware\AdminOperator::class,
         'adminservice'=> \App\Http\Middleware\AdminService::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class
     ];
 }

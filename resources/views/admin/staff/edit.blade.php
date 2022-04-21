@@ -53,6 +53,7 @@
                                         <option {{old('level',$user->level)=='accountant'?'selected':''}} value="accountant">    حسابداری  </option>
                                         <option {{old('level',$user->level)=='service'?'selected':''}} value="service">    خدمات پس از فروش  </option>
                                         <option {{old('level',$user->level)=='admin'?'selected':''}} value="admin">    ادمین  </option>
+                                        <option {{old('level',$user->level)=='producer'?'selected':''}} value="producer">      تولید کننده      </option>
                                     </select>
                                 </div>
                             </div>

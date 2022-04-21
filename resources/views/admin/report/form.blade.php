@@ -361,9 +361,9 @@
                                         </td>
                                         <td>{{$barcode->info}}</td>
                                         <td>
-                                            @can('is_admin')
+                                            @role('admin')
                                                 <a class="btn btn-outline-secondary" href="{{route('barcode.show',$barcode->id)}}">مشاهده</a>
-                                            @endcan
+                                            @endrole
 {{--                                            <a class="btn btn-outline-primary" href="{{route('barcode.edit',$barcode->id)}}">ویرایش</a>--}}
 {{--                                            <form action="{{route('barcode.destroy',$barcode->id)}}" style="display: inline-block" method="post">--}}
 {{--                                                @method('delete')--}}

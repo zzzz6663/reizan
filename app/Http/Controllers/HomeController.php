@@ -215,6 +215,9 @@ $exitCode = Artisan::call('optimize');
               case 'accountant':
                   return redirect()->route('admin.accountant.all');
                   break;
+              case 'producer':
+                  return redirect()->route('repair.barcode');
+                  break;
           }
 
        }

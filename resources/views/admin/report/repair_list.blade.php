@@ -137,6 +137,10 @@
 {{--                                    <input {{request('status')=='system'?'checked':''}} type="radio" name="status" id="all" class="   ml-4" value="system">--}}
 
 {{--                                </div>--}}
+                                <div class="col-lg-3 mb-2">
+                                    <input type="text"  name="search" value="{{request('search')}}" class="form-control" placeholder="جستجو">
+
+                                </div>
                                 <div class="col-lg-12">
                                     <label for="submit"></label>
                                     <input type="submit" id="submit" value="جست و جو">

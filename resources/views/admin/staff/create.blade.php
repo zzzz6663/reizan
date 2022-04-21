@@ -46,6 +46,7 @@
                                         <option {{old('level')=='qc'?'selected':''}} value="qc">  کنترل کیفیت  </option>
                                         <option {{old('level')=='accountant'?'selected':''}} value="accountant">    حسابداری  </option>
                                         <option {{old('level')=='service'?'selected':''}} value="service">    خدمات پس از فروش  </option>
+                                        <option {{old('level')=='producer'?'selected':''}} value="producer">      تولید کننده      </option>
                                     </select>
                                 </div>
                             </div>

@@ -531,7 +531,7 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="card-body">
-                                                @can('is_admin')
+                                                @role('admin')
                                                     <div class="form-group">
                                                         <label for="status">     وضعیت  </label>
                                                         <select name="status" class="form-control" id="status">
@@ -542,8 +542,8 @@
 
                                                         </select>
                                                     </div>
-                                                @endcan
-                                                @can('is_service')
+                                                @endrole
+                                                @role('service')
                                                 <div class="form-group">
                                                     <label for="status">   وضعیت  </label>
                                                     <select name="status" class="form-control" id="status">
@@ -558,7 +558,7 @@
                                                         @endif
                                                     </select>
                                                 </div>
-                                                @endcan
+                                                @endrole
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -603,7 +603,7 @@
         <script>
 
             let createNewPart=({obj_a,id,last})=>{
-                
+
                 var list;
                 var i=id;
 

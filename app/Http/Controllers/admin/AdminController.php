@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Exports\RepairNumberExport;
-use App\Exports\UsersFilterExport;
-use App\Http\Controllers\Controller;
-use App\Models\Attribute;
-use App\Models\Ostan;
-use App\Models\Product;
-use App\Models\Repair;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Validation\Rule;
-use Maatwebsite\Excel\Facades\Excel;
-use Morilog\Jalali\Jalalian;
 use NumberFormatter;
+use App\Models\Ostan;
+use App\Models\Repair;
+use App\Models\Product;
+use App\Models\Attribute;
+use Illuminate\Http\Request;
+use Morilog\Jalali\Jalalian;
+use Illuminate\Validation\Rule;
+use App\Exports\UsersFilterExport;
+use Spatie\Permission\Models\Role;
+use App\Exports\RepairNumberExport;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Crypt;
 
 class AdminController extends Controller
 {
@@ -39,8 +40,10 @@ class AdminController extends Controller
           'username'=>'required|min:4|unique:users',
           'level'=>'required',
       ]);
+
         $data['password']=Crypt::encryptString($data['password']);
-       User::create($data);
+        $user= User::create($data);
+       $user->assignRole( $data['level'] );
        alert()->success('کاربر با موفقیت ساخته شد ');
        return back();
     }
@@ -52,6 +55,7 @@ class AdminController extends Controller
           'username'=>['required','min:4' ,Rule::unique('users', 'username')->ignore($user->id)],
           'level'=>'required',
       ]);
+      $user->assignRole( $data['level'] );
         $data['password']=Crypt::encryptString($data['password']);
         $user->update($data);
        alert()->success('کاربر با موفقیت ویرایش شد ');
@@ -59,6 +63,23 @@ class AdminController extends Controller
     }
 
     public function staff(){
+
+        // accountant
+        // service
+        // admin
+        // operator
+        // $role = Role::create(['name' => 'qc']);
+        // $role = Role::create(['name' => 'admin']);
+        // $role = Role::create(['name' => 'service']);
+        // $role = Role::create(['name' => 'accountant']);
+        // $role = Role::create(['name' => 'producer']);
+        // $users=User::whereLevel('operator')->get();
+        // foreach($users as $user){
+        //     $user->assignRole('operator');
+        // }
+
+        // dd($users);
+
         return view('admin.staff.all');
     }
     public function staff_edit(User $user){
@@ -130,7 +151,12 @@ class AdminController extends Controller
         // $repairs->with('barcode',function ($query) {
         //     $query->orderBy('deliver');
         // });
-
+        if ($request->search){
+                $search=$request->search;
+                $repairs->whereHas('barcode', function ($query) use ($search){
+                    $query-> where('code','LIKE',"%{$search}%");
+                });
+            }
 
 
         if ($request->filter){

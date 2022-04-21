@@ -14,6 +14,18 @@ use NumberFormatter;
 
 class RepairController extends Controller
 {
+
+    public function __construct()
+    {
+        // $this->middleware('auth')->except(['index', 'show']);
+        // $this->middleware('role:admin', ['only' => ['show']]);
+        // $this->middleware('role:admin');
+
+        // $this->middleware('role:producer')->except(['destroy']);
+        // $this->middleware('role:service')->except(['destroy']);
+        // $this->middleware('subscribed')->except('store');
+    }
+    /*
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +79,7 @@ class RepairController extends Controller
     {
         $barcode=Barcode::find($request->barcode);
        if(!Carbon::parse($barcode->deliver)->addMonths($barcode->guaranty)->gt(Carbon::now())){
-alert()->error('گارانتی  این محصول به پایان رسیده است ');
+        alert()->error('گارانتی  این محصول به پایان رسیده است ');
        }
         $poll=$barcode->polls()->latest()->first();
         $repair=$barcode->repairs()->latest()->first();
@@ -77,10 +89,16 @@ alert()->error('گارانتی  این محصول به پایان رسیده ا�
         $mobile='';
         $address='';
         $bar='';
-        if ($repair || $poll){
+        if (($repair || $poll)){
             $name=$repair->name??$poll->user->name.''.$poll->user->family;
             $mobile=$repair->tell??$poll->user->mobile;
-            $bar=$repair->bar??$poll->bar;
+            if($repair->bar){
+             $bar=$repair->bar;
+
+            }elseif($poll){
+               $bar= $poll->bar;
+            }
+
         }
         if ($repair){
             $address=$repair->address;

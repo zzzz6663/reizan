@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Bkwld\Cloner\ServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
     /*

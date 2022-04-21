@@ -13,7 +13,7 @@ class AccountantController extends Controller
 
   public function all(Request $request){
 
-      $barcodes=Barcode::query();
+      $barcodes=Barcode::query();  
 //      $barcodes=$barcodes->where('customer_id',null);
 
       if ($request->filter){

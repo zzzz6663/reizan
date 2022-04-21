@@ -27,7 +27,7 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
-                  @canany([ 'is_admin' ])
+                  @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('cats.index')}}" class="nav-link {{(Route::currentRouteName()=='cats.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -37,10 +37,10 @@
                         </a>
 
                     </li>
-                    @endcanany
+                    @endrole
 
 
-                    @can('is_admin')
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('products.index')}}" class="nav-link {{(Route::currentRouteName()=='products.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -49,9 +49,9 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
+                    @endrole
 
-                    @can('is_admin')
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('admin.staff')}}" class="nav-link {{(Route::currentRouteName()=='admin.staff')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -60,10 +60,10 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
+                    @endrole
 
 
-                    @can('is_admin')
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('admin.customer')}}" class="nav-link {{(Route::currentRouteName()=='admin.customer')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -72,7 +72,7 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
+                    @endrole
 
 
 {{--                    <li class="nav-item has-treeview menu-open">--}}
@@ -83,7 +83,7 @@
 {{--                            </p>--}}
 {{--                        </a>--}}
 {{--                    </li>--}}
-                     @can('is_admin')
+                     @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('slider.index')}}" class="nav-link {{(Route::currentRouteName()=='slider.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -92,8 +92,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('part.index')}}" class="nav-link {{(Route::currentRouteName()=='part.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -102,8 +102,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('service.index')}}" class="nav-link {{(Route::currentRouteName()=='service.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -112,8 +112,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('customers.index')}}" class="nav-link {{(Route::currentRouteName()=='customers.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -122,8 +122,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('version.index')}}" class="nav-link {{(Route::currentRouteName()=='version.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -132,8 +132,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('color.index')}}" class="nav-link {{(Route::currentRouteName()=='color.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -142,8 +142,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @canany([ 'is_admin' ,'is_operator'])
+                    @endrole
+                    @role([ 'admin|operator|producer'])
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('barcode.index')}}" class="nav-link {{(Route::currentRouteName()=='barcode.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -152,9 +152,10 @@
                             </p>
                         </a>
                     </li>
-                    @endcanany
+                    @endrole
 
-                    @canany([ 'is_admin' ,'is_accountant'])
+
+                    @role([ 'admin|accountant'])
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('admin.accountant.all')}}" class="nav-link {{(Route::currentRouteName()=='admin.accountant.all')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -163,8 +164,9 @@
                             </p>
                         </a>
                     </li>
-                    @endcanany
-                    @canany([ 'is_admin' ,'is_service'])
+                    @endrole
+
+                    @role([ 'admin|service|producer'])
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('repair.index')}}" class="nav-link {{(Route::currentRouteName()=='repair.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -174,8 +176,8 @@
                         </a>
                     </li>
 
-                    @endcanany
-                    @canany(['is_admin',  'is_service'])
+                    @endrole
+                    @role([ 'admin|service|producer'])
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('repair.list')}}" class="nav-link {{(Route::currentRouteName()=='repair.list')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -185,7 +187,8 @@
                         </a>
                     </li>
 
-                    @endcanany
+                    @endrole
+                    @role('admin|service|producer')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('repair.barcode')}}" class="nav-link {{(Route::currentRouteName()=='repair.barcode')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -194,7 +197,8 @@
                             </p>
                         </a>
                     </li>
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('poll.index')}}" class="nav-link {{(Route::currentRouteName()=='poll.index')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -203,8 +207,8 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('admin.form')}}" class="nav-link {{(Route::currentRouteName()=='admin.form')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -213,8 +217,9 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
-                    @can('is_admin')
+                    @endrole
+                    @role('admin')
+
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('admin.stock')}}" class="nav-link {{(Route::currentRouteName()=='admin.stock')?'active':''}} ">
                             <i class="nav-icon fa fa-cogs"></i>
@@ -223,7 +228,7 @@
                             </p>
                         </a>
                     </li>
-                    @endcan
+                    @endrole
 
                 </ul>
             </nav>

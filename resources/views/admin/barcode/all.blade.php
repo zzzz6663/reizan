@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        @can('is_admin')
+                        @role('admin')
                             <div class="card-body">
                                 <h1>
                                     وضعیت
@@ -244,7 +244,7 @@
                             <!-- /.row -->
                         </div>
 
-                        @endcan
+                        @endrole
 
                         <div class="card-header">
                             <h3 class="card-title">  لیست    بارکد
@@ -329,9 +329,9 @@
                                         </td>
                                         <td>{{$barcode->info}}</td>
                                         <td>
-                                            @can('is_admin')
+                                            @role('admin')
                                             <a class="btn btn-outline-secondary" href="{{route('barcode.show',$barcode->id)}}">مشاهده</a>
-                                            @endcan
+                                            @endrole
                                             <a class="btn btn-outline-primary" href="{{route('barcode.edit',$barcode->id)}}">ویرایش</a>
                                             <form action="{{route('barcode.destroy',$barcode->id)}}" style="display: inline-block" method="post">
                                                 @method('delete')

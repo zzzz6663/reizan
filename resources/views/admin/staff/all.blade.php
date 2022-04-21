@@ -34,11 +34,13 @@
                                     <th>  اقدام</th>
                                 </tr>
 
-                                @foreach(\App\Models\User::whereIn('level',['admin','operator','accountant','qc','service'])->latest()->get() as $user)
+                                @foreach(\App\Models\User::whereIn('level',['admin','operator','accountant','qc','service','producer'])->latest()->get() as $user)
                                     <tr>
                                         <td>{{$loop->iteration}}</td>
                                         <td>{{$user->name}} {{$user->family}}   ({{$user->id}}) </td>
-                                        <td>{{$user->username}}</td>
+                                        <td>{{$user->username}}
+                                             {{-- {{$user->level}} --}}
+                                            </td>
                                         <td>{{\Illuminate\Support\Facades\Crypt::decryptString($user->password)}}</td>
                                         <td>{{__('arr.'.$user->level)}}</td>
                                         <td><a class="btn  btn-outline-primary" href="{{route('staff.edit',$user->id)}}">ویرایش</a>
