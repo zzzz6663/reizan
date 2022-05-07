@@ -188,6 +188,21 @@
                     </li>
 
                     @endrole
+                    @role([ 'admin|service'])
+                    <li class="nav-item has-treeview menu-open">
+                        <a href="{{route('transfer.index')}}" class="nav-link {{(Route::currentRouteName()=='transfer.index')?'active':''}} ">
+                            <i class="nav-icon fa fa-cogs"></i>
+                            <p>
+                                انتقالی و موحودی
+                            </p>
+                            @if (auth()->user()->check_transfer()>0)
+                            <span class="red_circle">1</span>
+                            @endif
+
+                        </a>
+                    </li>
+
+                    @endrole
                     @role('admin|service|producer')
                     <li class="nav-item has-treeview menu-open">
                         <a href="{{route('repair.barcode')}}" class="nav-link {{(Route::currentRouteName()=='repair.barcode')?'active':''}} ">

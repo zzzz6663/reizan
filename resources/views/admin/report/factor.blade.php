@@ -418,48 +418,7 @@
                                               </tfoot>
                                           </table>
                                       </div>
-                                      {{-- {{number_format($reizan)}} --}}
-{{--                                      <div class="row">--}}
-{{--                                          <div class="col-lg-6">--}}
-{{--                                            <h5 class="fs" >--}}
-{{--                                                   دستمزد شرکت:--}}
-{{--                                                {{number_format($repair->wage)}}--}}
 
-{{--                                            </h5>--}}
-{{--                                          </div>--}}
-{{--                                          <div class="col-lg-6">--}}
-{{--                                             <h5 class="fs">--}}
-{{--                                                    دستمزد مشتری:--}}
-{{--                                                 {{number_format($repair->customer_wage)}}--}}
-
-{{--                                             </h5>--}}
-{{--                                          </div>--}}
-{{--                                      </div>--}}
-{{--                                        <div class="row">--}}
-{{--                                            <div class="col-4">--}}
-{{--                                                <h6 class="fs">--}}
-{{--                                                    سهم  تعمیر شرکت:--}}
-{{--                                                    {{number_format($reizan)}}--}}
-
-{{--                                                </h6>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="col-4">--}}
-{{--                                                <h6 class="fs">--}}
-{{--                                                    سهم  تعمیر مشتری:--}}
-{{--                                                    {{number_format($customer)}}--}}
-
-{{--                                                </h6>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="col-4">--}}
-{{--                                                <h6 class="fs">--}}
-{{--                                                    جمع هزینه تعمیر  :--}}
-
-{{--                                                    {{number_format($customer+$reizan)}}--}}
-
-{{--                                                </h6>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                      <!-- /.col -->--}}
                                   </div>
                                   <div class="row">
                                       <div class="col-lg-12">
@@ -560,27 +519,6 @@
                                           var canvas_image_height = HTML_Height;
 
                                           var totalPDFPages = Math.ceil(HTML_Height/PDF_Height)-1;
-
-
-                                          // html2canvas($(".canvas_div_pdf2")[0],{allowTaint:true}).then(function(canvas) {
-                                          //     canvas.getContext('2d');
-                                          //
-                                          //     console.log(canvas.height+"  "+canvas.width);
-                                          //
-                                          //
-                                          //     var imgData = canvas.toDataURL("image/jpeg", 1.0);
-                                          //     console.log(imgData);
-                                          //     var pdf = new jsPDF('p', 'pt',  [PDF_Width, PDF_Height]);
-                                          //     pdf.addImage(imgData, 'JPG', -5, top_left_margin,canvas_image_width,canvas_image_height);
-                                          //
-                                          //
-                                          //     for (var i = 1; i <= totalPDFPages; i++) {
-                                          //         pdf.addPage(PDF_Width, PDF_Height);
-                                          //         pdf.addImage(imgData, 'JPG', -5, -(PDF_Height*i)+(top_left_margin*4),canvas_image_width,canvas_image_height);
-                                          //     }
-                                          //
-                                          //     pdf.save("HTML-Document.pdf");
-                                          // });
                                           html2canvas($(".canvas_div_pdf2")[0],{
                                               allowTaint:true,
                                               quality: 10,
@@ -629,6 +567,8 @@
             </section>
 
         </div>
+
+ 
     </div>
 
 @endcomponent

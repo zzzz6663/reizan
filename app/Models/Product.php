@@ -9,16 +9,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Product extends Model
 {
     use HasFactory;
-    use \Bkwld\Cloner\Cloneable;
-    protected $cloneable_relations = ['attributes'
-    , 'gallery'
-    , 'versions'
-    , 'colores'
-    , 'dls'
-    , 'parts'
-    , 'cat'
-    , 'barcodes'
-];
+    // use \Bkwld\Cloner\Cloneable;
+//     protected $cloneable_relations = ['attributes'
+//     , 'gallery'
+//     , 'versions'
+//     , 'colores'
+//     , 'dls'
+//     , 'parts'
+//     , 'cat'
+//     , 'barcodes'
+// ];
 
     protected $fillable=['name','info','color_id','cat_id','version_id','guaranty','thumb','current','link'];
 

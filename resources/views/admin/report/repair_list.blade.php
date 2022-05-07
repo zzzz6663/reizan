@@ -166,13 +166,15 @@
                                     <th>محصول </th>
                                     <th>
                                         @sortablelink('barcode.produce', 'produce')
-                                </th>
+                                    </th>
                                     <th>
                                         @sortablelink('barcode.deliver', 'deliver')
                                     </th>
-                                    <th>  رنگ </th>
-                                    <th>  ورژن </th>
-                                    <th>   تاریخ ثبت خرابی </th>
+                                    <th>  انتقال </th>
+                                    <th>
+
+                                        @sortablelink('created_at','تاریخ ثبت خرابی')
+                                     </th>
                                 </tr>
                                 @foreach($repairs as $repair)
 
@@ -180,7 +182,7 @@
 
                                         <td>{{$loop->iteration}}</td>
                                         <td>
-                                            <a href="{{route('repair.index',['code'=>$repair->barcode->id])}}">
+                                            <a href="{{route('barcode.show',$repair->barcode->id)}}">
                                                 {{$repair->barcode->code}}
                                             </a>
                                         </td>
@@ -188,10 +190,27 @@
                                         <td>{{$repair->name }}</td>
                                         <td>{{__('arr.'.$repair->status) }}</td>
                                         <td>{{isset($repair->barcode->product->name)?$repair->barcode->product->name:''}}</td>
-                                        <td>{{\Morilog\Jalali\Jalalian::forge($repair->barcode->produce)}}</td>
-                                        <td>{{\Morilog\Jalali\Jalalian::forge($repair->barcode->deliver)}}</td>
-                                        <td>  {{implode(', ',$repair->barcode->colores->pluck('name')->toArray())}}</td>
-                                        <td>{{isset($repair->barcode->version->name)?$repair->barcode->version->name:''}}</td>
+                                        <td>
+                                            @if ($repair->barcode->produce)
+                                            {{\Morilog\Jalali\Jalalian::forge($repair->barcode->produce)}}
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if ($repair->barcode->deliver)
+                                            {{\Morilog\Jalali\Jalalian::forge($repair->barcode->deliver)}}
+                                            @else
+                                            {{-- {{$repair->barcode->code}} --}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if (!(($repair->barcode->last_id) && $repair->barcode->last_id != auth()->user()->id) && $repair->status !='delivered')
+                                            <a href="{{route('transfer.create',['barcode'=>$repair->barcode->id])}}" class="btn btn-danger">انتقال</a>
+                                             @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('repair.print.receipt',['repair'=>$repair->id])}}" class="btn btn-success">رسید</a>
+                                        </td>
                                         <td>
                                             {{\Morilog\Jalali\Jalalian::forge($repair->created_at)}}
                                         </td>

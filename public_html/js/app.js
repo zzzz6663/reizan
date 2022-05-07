@@ -1861,6 +1861,7 @@ $('#ostan').on('change', function (e) {
   var res = lara_ajax('/admin/get_shahr/' + ele.val(), str);
   $('#shahr').html(res.body);
 });
+$('#show_msg').on('click', function (e) {});
 $('#productpart').on('change', function (e) {
   $('#dls').val(null).trigger('change');
   var ele = $(this);
@@ -1885,6 +1886,11 @@ if ($('.modal').length) {
     width: 800,
     closeOnEscape: true,
     closeButton: true,
+    padding: 20,
+    theme: 'light',
+    // dark
+    color: 'red',
+    // blue, red, green, yellow
     onClosing: function onClosing() {
       document.querySelectorAll('video').forEach(function (vid) {
         return vid.pause();
@@ -1894,6 +1900,116 @@ if ($('.modal').length) {
 }
 
 $(document).ready(function () {
+  document.addEventListener('play', function (e) {
+    var audios = document.getElementsByTagName('audio');
+
+    for (var i = 0, len = audios.length; i < len; i++) {
+      if (audios[i] != e.target) {
+        audios[i].pause();
+      }
+    }
+  }, true);
+  $("#start_button").click(function () {
+    startRecord();
+    $(this).hide();
+    $("#stop_button").removeClass("disnon");
+  });
+  var audioBlob;
+  var barcode;
+
+  function startRecord() {
+    navigator.mediaDevices.getUserMedia({
+      audio: true
+    }).then(function (stream) {
+      var mediaRecorder = new MediaRecorder(stream);
+      mediaRecorder.start();
+      var audioChunks = [];
+      mediaRecorder.addEventListener("dataavailable", function (event) {
+        audioChunks.push(event.data);
+      });
+      $("#stop_button").click(function () {
+        stream.getTracks() // get all tracks from the MediaStream
+        .forEach(function (track) {
+          return track.stop();
+        });
+        mediaRecorder.stop();
+        $(this).hide();
+        barcode = $("#stop_button").data('barcode');
+        console.log(barcode);
+        $("#start_button").show('fade');
+        $("#start_gif").hide();
+        $("#stop_gif").show('fade');
+        setTimeout(function () {
+          $("#stop_gif").hide('fade');
+        }, 4000);
+      });
+      mediaRecorder.addEventListener("stop", function () {
+        audioBlob = new Blob(audioChunks);
+      });
+    });
+  }
+
+  $(".sendv").click(function () {
+    var location = $(this).data('lo');
+    var url = $(this).data('url');
+    console.log(location);
+    console.log(url);
+    console.log(audioBlob);
+
+    if (audioBlob) {
+      createDownloadLink(audioBlob, barcode, location, url);
+    } else {
+      window.location.href = url;
+    }
+  });
+
+  function createDownloadLink(blob, barcode, location, url) {
+    var reader = new FileReader();
+    reader.readAsDataURL(blob);
+
+    reader.onloadend = function () {
+      var base64data = reader.result;
+      var file = dataURLtoFile(base64data, Date.now() + '.wav');
+      var data = new FormData();
+      data.append('voice', file, file.name);
+      $.ajax({
+        url: '/record_voice/' + barcode + '?location=' + location,
+        type: 'POST',
+        headers: {
+          'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content // 'Content-Type':'application/json,charset=utf-8'
+
+        },
+        data: data,
+        contentType: false,
+        processData: false,
+        success: function success(data) {
+          noty('صدا با موفقیت ارسال شد ', 'green', 'پیام'); //   location.reload();
+
+          window.location.href = url;
+        },
+        error: function error(err) {
+          console.log(data);
+        }
+      });
+    };
+  }
+
+  function dataURLtoFile(dataurl, filename) {
+    var arr = dataurl.split(','),
+        mime = arr[0].match(/:(.*?);/)[1],
+        bstr = atob(arr[1]),
+        n = bstr.length,
+        u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new File([u8arr], filename, {
+      type: mime
+    });
+  }
+
   $(document).on('click', '.trigger', function (event) {
     event.preventDefault();
     var id = $(this).data('id');
@@ -1955,6 +2071,22 @@ $(document).on('click', '.trigger', function (event) {
   var el = $(this);
   var id = el.data('id');
   $('#' + 'modal_' + id).iziModal('open');
+
+  if (id == 1) {
+    var deliver = $('#deliver').val();
+    var cname = $("#customer option:selected").text();
+    console.log(deliver);
+    $('#msm').removeClass('disnon');
+    $('#cname').text(cname);
+    $('#dtate').text(deliver.split("-").reverse().join("-"));
+    $('#myes').on('click', function (e) {
+      $('#barcode_edit_form').submit();
+    });
+    $('#mno').on('click', function (e) {
+      console.log('close');
+      $('.modal').iziModal('close');
+    });
+  }
 });
 $(document).on('click', '.remove_r', function (event) {
   var el = $(this);
@@ -19486,7 +19618,7 @@ process.umask = function() { return 0; };
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -19500,20 +19632,20 @@ process.umask = function() { return 0; };
 /******/ 			loaded: false,
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/ 	
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/chunk loaded */
 /******/ 	(() => {
@@ -19546,7 +19678,7 @@ process.umask = function() { return 0; };
 /******/ 			return result;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -19558,12 +19690,12 @@ process.umask = function() { return 0; };
 /******/ 			}
 /******/ 		})();
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
 /******/ 	(() => {
 /******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports
@@ -19574,7 +19706,7 @@ process.umask = function() { return 0; };
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nmd = (module) => {
@@ -19583,11 +19715,11 @@ process.umask = function() { return 0; };
 /******/ 			return module;
 /******/ 		};
 /******/ 	})();
-/******/ 	
+/******/
 /******/ 	/* webpack/runtime/jsonp chunk loading */
 /******/ 	(() => {
 /******/ 		// no baseURI
-/******/ 		
+/******/
 /******/ 		// object to store loaded and loading chunks
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
@@ -19595,19 +19727,19 @@ process.umask = function() { return 0; };
 /******/ 			"/js/app": 0,
 /******/ 			"css/app": 0
 /******/ 		};
-/******/ 		
+/******/
 /******/ 		// no chunk on demand loading
-/******/ 		
+/******/
 /******/ 		// no prefetching
-/******/ 		
+/******/
 /******/ 		// no preloaded
-/******/ 		
+/******/
 /******/ 		// no HMR
-/******/ 		
+/******/
 /******/ 		// no HMR manifest
-/******/ 		
+/******/
 /******/ 		__webpack_require__.O.j = (chunkId) => (installedChunks[chunkId] === 0);
-/******/ 		
+/******/
 /******/ 		// install a JSONP callback for chunk loading
 /******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
 /******/ 			var [chunkIds, moreModules, runtime] = data;
@@ -19632,20 +19764,20 @@ process.umask = function() { return 0; };
 /******/ 			}
 /******/ 			return __webpack_require__.O(result);
 /******/ 		}
-/******/ 		
+/******/
 /******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
 /******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
 /******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
 /******/ 	})();
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module depends on other loaded chunks and execution need to be delayed
 /******/ 	__webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/js/app.js")))
 /******/ 	var __webpack_exports__ = __webpack_require__.O(undefined, ["css/app"], () => (__webpack_require__("./resources/scss/app.scss")))
 /******/ 	__webpack_exports__ = __webpack_require__.O(__webpack_exports__);
-/******/ 	
+/******/
 /******/ })()
 ;

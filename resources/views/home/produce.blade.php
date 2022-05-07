@@ -120,13 +120,16 @@
                                                     <tbody>
                                                         @foreach($product->attributes()->where('cat','fan')->get() as $attribute)
                                                         <tr>
+
                                                             <td class="name"><span> {{$attribute->name}}</span></td>
                                                             <td>
-                                                                @if($attribute->values()->first())
-                                                                <span>
-                                                                    {{$attribute->values()->first()->value}}
-                                                                </span>
+
+
+                                                                @foreach($attribute->values as $value)
+                                                                @if ($value->id==$attribute->pivot->value_id)
+                                                                <span  >{{$value->value}}</span>
                                                                 @endif
+                                                                @endforeach
 
                                                             </td>
                                                         </tr>
@@ -144,16 +147,14 @@
                                                     <tbody>
                                                         @foreach($product->attributes()->where('cat','tag')->get() as $attribute)
 
-
                                                         <tr>
                                                             <td class="name"><span> {{$attribute->name}}</span></td>
                                                             <td>
-                                                                @if($attribute->values()->first())
-                                                                <span>
-                                                                    {{$attribute->values()->first()->value}}
-                                                                </span>
+                                                                @foreach($attribute->values as $value)
+                                                                @if ($value->id==$attribute->pivot->value_id)
+                                                                <span  >{{$value->value}}</span>
                                                                 @endif
-
+                                                                @endforeach
                                                             </td>
                                                         </tr>
                                                         @endforeach

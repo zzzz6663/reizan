@@ -42,7 +42,9 @@
     <link rel="stylesheet" href="/home/css/iziModal.min.css">
     <link rel="stylesheet" href="/manager/dist/css/persian-datepicker.css">
     <link rel="stylesheet" href="/home/css/apexcharts.css">
+    <link rel="stylesheet" href="/home/css/iziToast.min.css">
     <link rel="stylesheet" href="/css/app.css">
+
     <link rel="stylesheet" href="/css/lightbox.min.css">
 
 
@@ -120,6 +122,8 @@
 <script src="/home/js/plyr.min.js"></script>
 <script src="/home/js/ckeditor/ckeditor.js"></script>
 <script src="/home/js/iziModal.min.js"></script>
+<script type="text/javascript" src="/js/iziToast.js"></script>
+
 <script src="/manager/dist/js/persian-date.min.js"></script>
 <script src="/manager/dist/js/persian-datepicker.min.js"></script>
 <script src="/home/js/apexcharts.min.js"></script>

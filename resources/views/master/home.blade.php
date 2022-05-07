@@ -33,6 +33,7 @@
 <script type="text/javascript" src="/home/js/template.js"></script>
 <script src="/js/iziToast.js"></script>
 <script src="/js/fun.js"></script>
+
 <script type="text/javascript" src="/js/app.js"></script>
 
 

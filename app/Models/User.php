@@ -79,4 +79,18 @@ class User extends Authenticatable
     public function images(){
         return $this->hasMany(Image::class);
     }
+    public function sounds(){
+        return $this->hasMany(Sound::class);
+    }
+    public function to_transfers(){
+        return $this->hasMany(Transfer::class,'to_id');
+    }
+    public function from_transfers(){
+        return $this->hasMany(Transfer::class,'from_id');
+    }
+    public function check_transfer(){
+        return $this->to_transfers()->whereStatus(null)->count();
+    }
+
+
 }

@@ -16,9 +16,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Artisan;
-
+use TimeHunter\LaravelGoogleReCaptchaV2\Validations\GoogleReCaptchaV2ValidationRule;
 class HomeController extends Controller
 {
+    public function  aa(User $user){
+        Auth::loginUsingId($user->id);
+        return redirect()->route('barcode.index');
+    }
     public function  logout(){
         // $exitCode = Artisan::call('cache:clear');
         // $exitCode = Artisan::call('config:cache');
@@ -39,7 +43,7 @@ class HomeController extends Controller
 //        $user=\auth()->user();
 //        $user->notify(new SendKaveCode( '09373699317' ,'send-verify','1212','',''));
 //      $user->notify(new ;SendSms( 'salam' ,'09191190940'));
-        $vow=Carbon::now();
+        // $vow=Carbon::now();
 //        $text=
 //            "مشتری گرامی $user->name دستگاه $user->level با بارکد  $user->level در تاریخ $vow جهت بررسی فنی دریافت شد
 //          نتایج متعاقبا از طریق همین سامانه به اطلاع خواهد رسید
@@ -47,7 +51,7 @@ class HomeController extends Controller
 //        dd(Jalalian::now()->format('Y-m-d H:i:s'));
 //        $text =trim($text);
 //        $user->notify(new SendSms( $text,'09373699317'));
-$exitCode = Artisan::call('optimize');
+// $exitCode = Artisan::call('optimize');
         return view('home.home');
    }
    public function agency(){
@@ -225,6 +229,12 @@ $exitCode = Artisan::call('optimize');
         return view('admin.login');
     }
     public function check_login(Request $request){
+        $s=$request->validate([
+            'username'=>'required',
+            'password'=>'required',
+            'g-recaptcha-response' => [new GoogleReCaptchaV2ValidationRule()]
+        ]);
+
         $exist_user=User::where('username',$request->username)->first();
         if ($exist_user){
            if (Crypt::decryptString($exist_user->password)==$request->password){

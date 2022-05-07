@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Dl;
+use Carbon\Carbon;
 use NumberFormatter;
 use App\Models\Repair;
 use App\Models\Barcode;
@@ -14,6 +15,10 @@ class ReportController extends Controller
     public function print_factor(Request $request, Repair $repair)
     {
         return view('admin.report.factor', compact('repair'));
+    }
+    public function print_receipt(Request $request, Repair $repair)
+    {
+        return view('admin.report.receipt', compact('repair'));
     }
     //    public function print_customer(Request $request , Repair $repair){
     //        return view('admin.report.factor',compact('repair'));
@@ -35,21 +40,21 @@ class ReportController extends Controller
         if ($request->produce_from) {
             $produce_from=$this->convert_date($request->produce_from);
             // $request->from=$this->convert_date($request->from);
-            $barcodes->where('produce', '>=', $produce_from);
+            $barcodes->where($request->amams_status, '>=', $produce_from);
         }
         if ($request->produce_till) {
             $produce_till=$this->convert_date($request->produce_till);
-            $barcodes->where('produce', '<', $produce_till);
+            $barcodes->where($request->amams_status, '<', $produce_till);
         }
-        if ($request->deliver_from) {
-            $deliver_from=$this->convert_date($request->deliver_from);
-            // $request->from=$this->convert_date($request->from);
-            $barcodes->where('deliver', '>=', $deliver_from);
-        }
-        if ($request->deliver_till) {
-            $deliver_till=$this->convert_date($request->deliver_till);
-            $barcodes->where('deliver', '<', $deliver_till);
-        }
+        // if ($request->deliver_from) {
+        //     $deliver_from=$this->convert_date($request->deliver_from);
+        //     // $request->from=$this->convert_date($request->from);
+        //     $barcodes->where('deliver', '>=', $deliver_from);
+        // }
+        // if ($request->deliver_till) {
+        //     $deliver_till=$this->convert_date($request->deliver_till);
+        //     $barcodes->where('deliver', '<', $deliver_till);
+        // }
         if ($request->dls) {
             foreach ($request->dls as $ke => $va) {
                 if ($va['max'] && $va['min']) {
@@ -180,8 +185,23 @@ class ReportController extends Controller
 
         //        $barcodes=  $barcodes->get();
 
-        $barcodes =  $barcodes->latest()->paginate(10);
-        return view('admin.report.form', compact(['barcodes']));
+        $barcodes =  $barcodes->latest()->paginate(30);
+        // $list = Carbon::now();
+        $date_chart=array();
+        $blist=array();
+        if($request->amams_status && isset($produce_till)  && isset($produce_from)){
+            $to = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i',  $produce_till);
+            $from = \Carbon\Carbon::createFromFormat('Y-m-d H:s:i',  $produce_from);
+            $diff_in_days = $to->diffInDays($from);
+            for ($i = 0 ; $i <= $diff_in_days; $i++) {
+                $blist[]=Barcode::whereDate($request->amams_status, '=', Carbon::parse($produce_till)->subDays($i))->count();
+                $date_chart[]=(\Morilog\Jalali\Jalalian::forge( Carbon::parse($produce_till)->subDays($i))->format('m-d'));
+            }
+        }
+
+// dd(json_encode($blist));
+// dd(json_encode($date_chart));
+        return view('admin.report.form', compact(['barcodes','blist','date_chart']));
     }
     public function form2(Request $request)
     {

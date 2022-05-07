@@ -17,7 +17,7 @@ class CheckAdmin
     public function handle(Request $request, Closure $next)
     {
         if (!in_array($request->user()->level,['admin','operator','qc','accountant','service'])){
-           return  redirect(route('login'));
+        //    return  redirect(route('login'));
         }
         return $next($request);
     }

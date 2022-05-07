@@ -40,7 +40,7 @@
                                        <span class="text-danger">
                                             تاریخ تولید:
                                        </span>
-                                        {{\Morilog\Jalali\Jalalian::forge($barcode->produce)->format('h-m-Y')}}
+                                        {{\Morilog\Jalali\Jalalian::forge($barcode->produce)->format('d-m-Y')}}
 
                                     </h5>
                                 </div>
@@ -50,7 +50,7 @@
                                                    تاریخ خروج:
 
                                        </span>
-                                      {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)->format('h-m-Y')}}
+                                      {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)->format('d-m-Y') }}
 
                                     </h5>
                                 </div>

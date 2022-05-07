@@ -38,7 +38,7 @@
                                 <div class="form-group">
                                     <label for="color">مشتری  </label>
                                     <select class="form-control" name="customer_id" id="customer">
-                                        <option disabled value="">یک مورد را انتخاب کنید</option>
+                                        <option  value="">یک مورد را انتخاب کنید</option>
                                         @foreach(\App\Models\User::whereLevel('customer')->get() as $customer)
                                             <option  {{old('customer_id',$barcode->customer_id)==$customer->id?'selected':''}} value="{{$customer->id}}">{{$customer->name}} {{$customer->family}}</option>
                                         @endforeach

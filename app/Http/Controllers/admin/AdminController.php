@@ -224,7 +224,7 @@ class AdminController extends Controller
           $repairs->whereStatus($status);
         }
         // $repairs=  $repairs     ->orderBy('deliver')->get() ;
-        $repairs=  $repairs->sortable()->paginate(10) ;
+        $repairs=  $repairs->sortable()->latest()->paginate(10) ;
         return view('admin.report.repair_list',compact('repairs'));
     }
 

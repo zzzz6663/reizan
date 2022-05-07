@@ -1,60 +1,162 @@
-.select2-search__field ,.select2-selection__rendered ,.select2-results__option{
-    direction: rtl!important;
+
+#receipt{
+*{
+    color:red
 }
-@media only screen and (max-width: 1300px){
-#logo{
-    margin-left: 0!important;
-    transform: translateX(-50%);
+.rad{
+    border:2px solid red;
+    border-radius:20px;
+    padding:10px 0;
+    ul{
+        list-style: none;
+        li{
+         text-align: center;
+         margin-bottom: 10px;
+        }
+    }
+ }
+.boc{
+    padding:20px;
+    box-sizing: border-box;
+
+    .bocy{
+
+    }
 }
+}
+.red_circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: red;
+    color: white;
+    border: 1px solid #000000;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    bottom: 10px;
 }
 
-#product .product-tab .tab-nav li{
+#section_1 {
+}
+#section_2 {
+    height: 100px;
+    background-color: white;
+    position: absolute;
+    bottom: 0;
+    overflow: hidden;
+}
+#stop_gif {
+    display: none;
+    width: 50px;
+    height: 50px;
+}
+#stop_gif img {
+    height: 300px;
+    width: auto;
+}
+#stop_gif p {
+    color: #00f0c5;
+    font-family: "B Yekan";
+    font-size: 18px;
+}
+#start_gif {
+    display: none;
+    overflow: hidden;
+    position: relative;
+    width: 50px;
+    height: 50px;
+}
+#start_gif img {
+    height: 300px;
+    width: auto;
+}
+#start_gif p {
+    color: #f34348;
+    font-family: "B Yekan";
+    font-size: 18px;
+}
+#start_gif div {
+    height: 70px;
+    background-color: black;
+    position: absolute;
+    top: 220px;
+    width: 100%;
+}
+// #start_button{
+//     height: 50px;width: 300px;cursor: pointer;background: linear-gradient(to left,#0f0c29,#302b63,#24243e);box-shadow: 0 8px  16px 0 rgba(0,0,0,.4);margin-top: 25px;border-radius: 10px;text-align: center;
+// }
+// #stop_button{
+//     display: none;height: 50px;width: 300px;cursor: pointer;background: linear-gradient(to left,#0f0c29,#302b63,#24243e);box-shadow: 0 8px  16px 0 rgba(0,0,0,.4);margin-top: 25px;border-radius: 10px;text-align: center;
+// }
+
+.select2-search__field,
+.select2-selection__rendered,
+.select2-results__option {
+    direction: rtl !important;
+}
+@media only screen and (max-width: 1300px) {
+    #logo {
+        margin-left: 0 !important;
+        transform: translateX(-50%);
+    }
+}
+
+#product .product-tab .tab-nav li {
     width: 20%;
 }
-.disnon{
-    display: none;
+.disnon {
+    display: none !important;
 }
-.er{
-   border: 1px solid red;
+.er {
+    border: 1px solid red;
     margin: 10px;
     padding: 20px;
     box-sizing: border-box;
     background: #fccccc;
-    span{
+    span {
         font-size: 14px;
         display: block;
     }
 }
-.select2-selection__choice{
-    color: #000!important;
+.select2-selection__choice {
+    color: #000 !important;
 }
-.fs{
+.fs {
     font-size: 12px;
 }
 
-.input-container.active span{
-    z-index: 10!important;
+.input-container.active span {
+    z-index: 10 !important;
 }
-#factor{
+#factor {
     .table td {
         padding: 2px;
         font-size: 11px;
     }
-
 }
 
-.sidebar{
-    height: calc(100% - 130px)!important;
+.sidebar {
+    height: calc(100% - 130px) !important;
 }
- #slider .slide:before {
-     /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#c9549f+0,1e73c9+100&0.13+0,0.27+100 */
-     background: -moz-linear-gradient(top,  rgba(201,84,159,0.13) 0%, rgba(30,115,201,0.27) 100%); /* FF3.6-15 */
-     background: -webkit-linear-gradient(top,  rgba(201,84,159,0.13) 0%,rgba(30,115,201,0.27) 100%); /* Chrome10-25,Safari5.1-6 */
-     background: linear-gradient(to bottom,  rgba(201,84,159,0.13) 0%,rgba(30,115,201,0.27) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c9549f', endColorstr='#451e73c9',GradientType=0 ); /* IE6-9 */
+#slider .slide:before {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#c9549f+0,1e73c9+100&0.13+0,0.27+100 */
+    background: -moz-linear-gradient(top, rgba(201, 84, 159, 0.13) 0%, rgba(30, 115, 201, 0.27) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+        top,
+        rgba(201, 84, 159, 0.13) 0%,
+        rgba(30, 115, 201, 0.27) 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+        to bottom,
+        rgba(201, 84, 159, 0.13) 0%,
+        rgba(30, 115, 201, 0.27) 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#21c9549f', endColorstr='#451e73c9',GradientType=0 ); /* IE6-9 */
 }
-#mainmenu > ul > li{
-    margin: 0 15px!important;
+#mainmenu > ul > li {
+    margin: 0 15px !important;
 }
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -64,20 +166,19 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
     -moz-appearance: textfield;
 }
-.boxy{
-  .ra{
-      margin-bottom: 20px;
-      text-align: right;
-      table{
-          width: 100%;
-      }
+.boxy {
+    .ra {
+        margin-bottom: 20px;
+        text-align: right;
+        table {
+            width: 100%;
+        }
+    }
 
-  }
-
-    label{
+    label {
         display: block;
         font-weight: bold;
         font-size: 14px;
@@ -85,7 +186,9 @@ input[type=number] {
         color: #0b2e13;
         margin-bottom: 5px;
     }
-    input[type=number],input[type=text]  ,select{
+    input[type="number"],
+    input[type="text"],
+    select {
         width: 100%;
         border: 1px solid #baafbd;
         border-radius: 10px;
@@ -93,12 +196,12 @@ input[type=number] {
         line-height: 36px;
         box-sizing: border-box;
     }
-    textarea{
+    textarea {
         width: 100%;
         border: 1px solid #000;
         border-radius: 10px;
     }
-    .bt1{
+    .bt1 {
         display: inline-block;
         height: 56px;
         line-height: 56px;
@@ -109,23 +212,23 @@ input[type=number] {
         margin-right: 10px;
         border: none;
         cursor: pointer;
-        &:hover{
+        &:hover {
             background: #a21b6f;
         }
     }
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
-
 }
 
-input[type="checkbox"] ,input[type="radio"] {
-    transform:scale(2, 2);
+input[type="checkbox"],
+input[type="radio"] {
+    transform: scale(2, 2);
 }
-.pagination1{
-    .number{
-        ul{
-            li{
+.pagination1 {
+    .number {
+        ul {
+            li {
                 width: 30px;
                 height: 30px;
                 line-height: 30px;
@@ -135,21 +238,19 @@ input[type="checkbox"] ,input[type="radio"] {
                 display: inline-block;
 
                 background: #809093;
-                a{
+                a {
                     color: #fff;
                 }
-                &.active{
+                &.active {
                     background: #cdcbcb;
-                    a{
-
+                    a {
                         color: #716f6f;
                     }
-
-               }
+                }
             }
         }
     }
 }
-.ss{
+.ss {
     color: red;
 }

@@ -157,6 +157,7 @@ class ProductController extends Controller
             $attr_value = $attr->values()->firstOrCreate([
                 'value' => $item['value'],
             ]);
+
             $product->attributes()->attach($attr->id, ['value_id' => $attr_value->id]);
         });
         }

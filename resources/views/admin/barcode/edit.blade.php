@@ -18,7 +18,7 @@
                     @include('error')
 
                     <!-- form start -->
-                        <form role="form" action="{{route('barcode.update',$barcode->id)}}" method="post" >
+                        <form role="form" id="barcode_edit_form" action="{{route('barcode.update',$barcode->id)}}" method="post" >
                             @csrf
                             @method('patch')
                             <div class="card-body">
@@ -93,10 +93,26 @@
                                 </div>
                             </div>
                             <!-- /.card-body -->
+                            <div class="card-footer " >
+                                <button type="submit" id="ssubmit" class="btn disnon btn-primary">ارسال</button>
+                                <span class="btn btn-primary trigger" data-id='1' id="show_msg" >ذخیره</span>
+                                <div id="modal_1" class="modal" style="">
+                                    <h1>موارد زیر را تایید میکنید؟</h1>
+                                    <p>
+                                        <span style="color:rgb(0, 0, 0);font-size:25px" class="title">    نام مشتری   :</span>
+                                        <span  style="color:green;font-size:25px"  class="content" id="cname"></span>
+                                    </p>
+                                    <p>
+                                        <span  style="color:rgb(0, 0, 0);font-size:25px"  class="title" >   تاریخ خروج :</span>
+                                        <span  style="color:rgb(210, 57, 11);font-size:25px"  class="content" id="dtate"></span>
+                                    </p>
+                                    <span class="btn btn-dark " id="myes" >بله</span>
+                                    <span class="btn btn-danger " id="mno" >خیر</span>
 
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">ارسال</button>
-                                <a class="btn btn-success" href="{{route('barcode.index')}}">برگشت</a>
+
+                                </div>
+
+                                <a class="btn btn-success " href="{{route('barcode.index')}}">برگشت</a>
                             </div>
                         </form>
                     </div>

@@ -44,6 +44,7 @@
                                     <input type="text" name="password" value="{{old('password',\Illuminate\Support\Facades\Crypt::decryptString($user->password))}}" class="form-control" id="password" placeholder=" یوزر نیم را وارد کنید">
 {{--                                    <input type="text" name="password" value="{{old('password',$user->password)}}" class="form-control" id="password" placeholder=" یوزر نیم را وارد کنید">--}}
                                 </div>
+                               
                                 <div class="form-group">
                                     <label for="level">  نوع کابری   </label>
                                     <select name="level" id="level" class="form-control">

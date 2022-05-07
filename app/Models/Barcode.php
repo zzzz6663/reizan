@@ -23,7 +23,10 @@ class Barcode extends Model
         'sell',
         'info',
         'cleared',
-        'discount'
+        'discount',
+        'last_id',//اخرین یوزر تحویل گیرنده بارکد
+        'store',//وضعیت انبار اگر نال باشد یعنی تعیین نشده و و اگریک باشد یعنی داخل انبار و اگر صفر باشد یعنی خروج
+
 
     ];
     public $sortable = [
@@ -39,15 +42,16 @@ class Barcode extends Model
         'sell',
         'info',
         'cleared',
-        'discount'
+        'discount',
+
 
     ];
-    protected $casts = [
-        'created_at' => 'datetime:Y-m-d',
-        'updated_at' => 'datetime:Y-m-d',
-        'deleted_at' => 'datetime:Y-m-d h:i:s',
-        'deliver' => 'datetime:Y-m-d h:i:s'
-    ];
+    // protected $casts = [
+    //     'created_at' => 'datetime:Y-m-d',
+    //     'updated_at' => 'datetime:Y-m-d',
+    //     'deleted_at' => 'datetime:Y-m-d h:i:s',
+    //     'deliver' => 'datetime:Y-m-d h:i:s'
+    // ];
     public function versions(){
         return $this->belongsToMany(Version::class);
     }
@@ -60,6 +64,9 @@ class Barcode extends Model
 
     public function user(){
         return $this->belongsTo(User::class,'user_id');
+    }
+    public function lastuser(){
+        return $this->belongsTo(User::class,'last_id');
     }
 
     public function customer(){
@@ -76,6 +83,19 @@ class Barcode extends Model
     }
     public function polls(){
         return $this->hasMany(Poll::class);
+    }
+    public function transfers(){
+        return $this->hasMany(Transfer::class);
+    }
+    public function sounds(){
+        return $this->hasMany(Sound::class);
+    }
+    public function update_store($store,$id){
+        return $this->update([
+            'store'=>$store,
+            'last_id'=>$id,
+
+        ]);
     }
     // public function color(){
     //     return $this->belongsTo(Color::class);

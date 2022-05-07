@@ -72,10 +72,10 @@
                                                         ماه
 
                                                         از
-                                                        <span class="text-success">     {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)->format('h-m-Y')}}</span>
+                                                        <span class="text-success">     {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)->format('d-m-Y')}}</span>
                                                         تا
                                                         <span class="text-danger">
-                                                                                                    {{\Morilog\Jalali\Jalalian::forge(\Carbon\Carbon::parse($barcode->deliver)->addMonths($barcode->guaranty))->format('h-m-Y')}}
+                                                                                                    {{\Morilog\Jalali\Jalalian::forge(\Carbon\Carbon::parse($barcode->deliver)->addMonths($barcode->guaranty))->format('d-m-Y')}}
                                                             (
                                                                     @if(      !\Carbon\Carbon::parse($barcode->deliver)->addMonths($barcode->guaranty)->gt(\Carbon\Carbon::now())
                                                                     )
@@ -358,21 +358,21 @@
                                         </div>
                                         <div class="col-lg-12">
 
-                                            <div class="card-body">
-                                                <div class="form-group">
+                                            <div class="card-body row">
+                                                <div class="form-group col-lg-3">
                                                     <label for="redate">  تاریخ تعمیر</label>
                                                     <input type="text" name="redate" value="{{old('redate')}}" class="form-control persian3" id="redate" placeholder="تاریخ تعمیر را وارد کنید">
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group  col-lg-3">
                                                     <label for="wage">  دستمزد  </label>
                                                     <input type="number" name="wage" value="{{old('wage')}}" class="form-control " id="wage" placeholder="دستمزد  را وارد کنید">
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group  col-lg-3">
                                                     <label for="customer_wage">  دستمزد سهم مشتری  </label>
                                                     <input type="number" name="customer_wage" value="{{old('customer_wage')}}" class="form-control " id="customer_wage" placeholder="دستمزد  را وارد کنید">
                                                 </div>
 
-                                                <div class="form-group">
+                                                <div class="form-group  col-lg-3">
                                                     <label for="explain">      توضیحات</label>
                                                     <textarea name="explain" id="explain" class="form-control" cols="30" rows="5">{{old('explain')}}</textarea>
                                                 </div>
@@ -447,7 +447,16 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
+                                            <div class="card-body">
+                                                <div class="form-group">
+                                                    <input type="checkbox" name="dewater" hidden="" value="0">
+                                                    <input type="checkbox" name="send_sms" value="1" checked class="form-check-inline" >
+                                                    <label for="dename" class="form-check-inline">ارسال پیامک      </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="dename">نام   تحویل گیرنده</label>
@@ -455,7 +464,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
+                                        <div class="col-lg-4">
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="dedate">    تاریخ تحویل   </label>

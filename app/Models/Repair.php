@@ -11,7 +11,7 @@ class Repair extends Model
 
     use HasFactory;
     use Sortable;
-
+    public $timestamps = true;
     protected $fillable=['barcode_id','name','tell','shipping'
         ,'address','comment','img1','img2','img3','bar','defect'
         ,'report','redate','wage','explain','dename','dedate',
@@ -26,6 +26,7 @@ class Repair extends Model
         'status',
         'sudate',
         'sms_submit',
+        'created_at',
 
         ];
     protected $sortable=['barcode_id','name','tell','shipping'
@@ -42,6 +43,7 @@ class Repair extends Model
         'status',
         'sudate',
         'sms_submit',
+        'created_at',
 
         ];
 
@@ -62,5 +64,8 @@ class Repair extends Model
     }
     public function images(){
         return $this->hasMany(Image::class);
+    }
+    public function transfers(){
+        return $this->hasMany(Transfer::class);
     }
 }

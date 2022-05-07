@@ -86,15 +86,32 @@
                                                         ماه
 
                                                         از
-                                                        <span class="text-success">     {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)->format('h-m-Y')}}</span>
+                                                        <span class="text-success">     {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)->format('d-m-Y')}}</span>
                                                         تا
                                                         <span class="text-danger">
-                                                                                                    {{\Morilog\Jalali\Jalalian::forge(\Carbon\Carbon::parse($barcode->deliver)->addMonths($barcode->guaranty))->format('h-m-Y')}}
+                                                                                                    {{\Morilog\Jalali\Jalalian::forge(\Carbon\Carbon::parse($barcode->deliver)->addMonths($barcode->guaranty))->format('d-m-Y')}}
 
                                                 </span>
 
                                                     </h5>
                                                 </div>
+                                                @role('admin')
+                                                <div class="form-group">
+                                                    <label for="created_at">    تاریخ ارجاع   </label>
+                                                    <input type="text" name="created_at" value="{{old('created_at',$repair->created_at)}}" class="form-control persian" id="created_at"  placeholder=" تاریخ ارجاع را وارد کنید ">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="redate">  تاریخ تعمیر</label>
+                                                    <input type="text" name="redate" value="{{old('redate',$repair->redate)}}" class="form-control persian2" id="redate" placeholder="تاریخ تعمیر را وارد کنید">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="dedate">    تاریخ تحویل   </label>
+                                                    <input type="text" name="dedate" value="{{old('dedate',$repair->dedate)}}" class="form-control persian" id="dedate" placeholder="تاریخ را وارد کنید">
+                                                </div>
+
+                                                @endrole
                                                 <div class="form-group">
                                                     <label for="img1">  انتخاب عکس
                                                         1
@@ -435,10 +452,7 @@
                                         <div class="col-lg-12">
 
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <label for="redate">  تاریخ تعمیر</label>
-                                                    <input type="text" name="redate" value="{{old('redate',$repair->redate)}}" class="form-control persian2" id="redate" placeholder="تاریخ تعمیر را وارد کنید">
-                                                </div>
+
                                                 <div class="form-group">
                                                     <label for="wage">  دستمزد سهم شرکت  </label>
                                                     <input type="number" name="wage" value="{{old('wage',$repair->wage)}}" class="form-control " id="wage" placeholder="دستمزد  را وارد کنید">
@@ -529,36 +543,13 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+
                                         <div class="col-lg-4">
                                             <div class="card-body">
-                                                @role('admin')
-                                                    <div class="form-group">
-                                                        <label for="status">     وضعیت  </label>
-                                                        <select name="status" class="form-control" id="status">
-                                                            <option {{old('status',$repair->status=='submit'?'selected':'')}} value="submit">ثبت اولیه </option>
-                                                            <option {{old('status',$repair->status=='saves'?'selected':'')}} value="saves">ثبت نهایی</option>
-                                                            <option {{old('status',$repair->status=='delivered'?'selected':'')}} value="delivered">تحویل کالا</option>
-
-
-                                                        </select>
-                                                    </div>
-                                                @endrole
-                                                @role('service')
                                                 <div class="form-group">
-                                                    <label for="status">   وضعیت  </label>
-                                                    <select name="status" class="form-control" id="status">
-                                                        @if($repair->status=='submit')
-                                                        <option {{old('status',$repair->status=='submit'?'selected':'')}} value="submit">ثبت اولیه </option>
-
-                                                        <option {{old('status',$repair->status=='saves'?'selected':'')}} value="saves">ثبت نهایی</option>
-                                                        @endif
-                                                        @if($repair->status=='saves' || $repair->status=='delivered')
-                                                                <option {{old('status',$repair->status=='saves'?'selected':'')}} value="saves">ثبت نهایی</option>
-                                                        <option {{old('status',$repair->status=='delivered'?'selected':'')}} value="delivered">تحویل کالا</option>
-                                                        @endif
-                                                    </select>
+                                                    <input type="checkbox" name="send_sms" value="1" checked class="form-check-inline" >
+                                                    <label for="dename" class="form-check-inline">ارسال پیامک      </label>
                                                 </div>
-                                                @endrole
                                             </div>
                                         </div>
                                         <div class="col-lg-4">
@@ -569,12 +560,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
+
+
+                                        <div class="col-lg-12">
                                             <div class="card-body">
-                                                <div class="form-group">
-                                                    <label for="dedate">    تاریخ تحویل   </label>
-                                                    <input type="text" name="dedate" value="{{old('dedate',$repair->dedate)}}" class="form-control persian" id="dedate" placeholder="تاریخ را وارد کنید">
-                                                </div>
+                                                {{-- @role('admin') --}}
+                                                    <div class="form-group">
+
+                                                            <input type="text" class=" " hidden="" name="status" value="">
+
+                                                            <input type="submit" 1="" class="   btn btn-success " name="submit"   value=" ثبت اولیه ">
+
+                                                            <input type="submit" 1="" class="   btn btn-warning" name="saves"   value=" ثبت نهایی ">
+
+                                                            <input type="submit" 1="" class="    btn btn-primary" name="delivered"   value="تحویل کالا ">
+                                                            <br>
+                                                            <br>
+                                                            <br>
+                                <a class="btn btn-danger" href="{{route('repair.index')}}">برگشت</a>
+
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>
@@ -587,11 +592,10 @@
 
 
 
-                            <div class="card-footer">
+                            {{-- <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">ارسال</button>
-                                <a class="btn btn-success" href="{{route('repair.index')}}">برگشت</a>
 
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>

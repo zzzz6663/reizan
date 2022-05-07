@@ -10,10 +10,12 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+ mix.disableSuccessNotifications();
+ mix.disableNotifications();
+
 mix.setPublicPath('public_html/');
 mix.js('resources/js/app.js', 'public_html/js')
     .sass('resources/scss/app.scss', 'public_html/css');
-
 
 // mix.js('resources/js/app.js', 'public/js')
 //     .postCss('resources/css/app.css', 'public/css', [

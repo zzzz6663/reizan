@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -278,6 +279,7 @@
     </style>
 </head>
 <body>
+
 {{--@dd(\Illuminate\Support\Facades\Crypt::encrypt('1234'))--}}
 <div class="wrapper fadeInDown">
     <div id="formContent">
@@ -290,18 +292,27 @@
 {{--        </div>--}}
 
         <!-- Login Form -->
+        @if($errors->any())
+        {!! implode('', $errors->all('<div>:message</div>')) !!}
+    @endif
         <form action="{{route('admin.check.login')}}"  method="post">
             @csrf
              @method('post')
             <input type="text" id="login" class="fadeIn second" name="username" placeholder="username">
             <input type="password" id="password" class="fadeIn third" name="password" placeholder="password">
+            <div id="form_id_1">
+
+            </div>
             <input type="submit" class="fadeIn fourth" value="Log In">
+
         </form>
 
 
 
     </div>
 </div>
+{!!  GoogleReCaptchaV2::render('form_id_1') !!}
+
 <script src="{{ asset('js/app.js') }}"></script>
 </body>
 @include('sweet::alert')

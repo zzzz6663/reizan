@@ -3,17 +3,18 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use NumberFormatter;
 use App\Models\Barcode;
 use Illuminate\Http\Request;
-use NumberFormatter;
+use App\Http\Controllers\Controller;
 
 class AccountantController extends Controller
 {
 
   public function all(Request $request){
 
-      $barcodes=Barcode::query();  
+      $barcodes=Barcode::query();
 //      $barcodes=$barcodes->where('customer_id',null);
 
       if ($request->filter){
@@ -73,7 +74,7 @@ class AccountantController extends Controller
       }
       session()->put('url',$request->getRequestUri());
 
-      $barcodes=  $barcodes->paginate(10) ;
+      $barcodes=  $barcodes->latest()->paginate(10) ;
       return view('admin.accountant.all',compact('barcodes'));
   }
 
@@ -90,6 +91,17 @@ class AccountantController extends Controller
            'deliver'=>'required',
        ]);
         $data['deliver']=$this->convert_date($data['deliver']);
+
+        if ((!$barcode->customer_id) ){
+            $barcode->update(['sell'=>Carbon::now()]);
+            $user=auth()->user();
+            $barcode->transfers()->create([
+                'from_id'=> $user->id,
+                'type'=>'sell',
+                'status'=>'1',
+            ]);
+            $barcode->update_store('0',$user->id);
+        }
         $barcode->update($data);
 
         alert()->success('بار کد با موفقیت به روز شد ');

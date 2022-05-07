@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barcode;
 use Carbon\Carbon;
+use NumberFormatter;
+use App\Models\Sound;
+use App\Models\Barcode;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use NumberFormatter;
+use Illuminate\Support\Facades\File;
 
 
 class BarcodeController extends Controller
@@ -93,9 +95,13 @@ class BarcodeController extends Controller
         if ($request->all){
             $barcodes->where('customer_id',null);
         }
+        if ($request->has('store')){
+            $barcodes->where('store','=',$request->store);
+        }
 
         $barcodes=  $barcodes->sortable()->latest()->paginate(10);
         return view('admin.barcode.all',compact(['barcodes']));
+
     }
 
     /**
@@ -103,6 +109,7 @@ class BarcodeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create(Request $request)
     {
 
@@ -136,10 +143,26 @@ class BarcodeController extends Controller
 
         }
 
-        $user=auth()->user();
+       $user=auth()->user();
+
        $barcode= $user->ubarcodes()->create($data);
        if ($data['customer_id']){
            $barcode->update(['sell'=>Carbon::now()]);
+           $barcode->transfers()->create([
+            'from_id'=> $user->id,
+            'type'=>'sell',
+            'status'=>'1',
+
+            ]);
+            $barcode->update_store('0',$user->id);
+       }else{
+           $barcode->transfers()->create([
+            'from_id'=> $user->id,
+            'type'=>'produce',
+            'status'=>'1',
+
+            ]);
+            $barcode->update_store('1',$user->id);
        }
         $barcode->update(['guaranty'=>$barcode->product->guaranty]);
         if(isset($data['operators'])){
@@ -153,8 +176,11 @@ class BarcodeController extends Controller
             $barcode->colores()->sync($data['colores']);
 
         }
+
+
+
        alert()->success('  بارکد با موفقیت اضافه شد ');
-       return back();
+       return redirect()->route('barcode.show',$barcode->id);
     }
     public function convert_date( $from){
 
@@ -188,6 +214,40 @@ class BarcodeController extends Controller
         return view('admin.barcode.edit' ,compact('barcode'));
 
     }
+    public function sell(Barcode $barcode,Request $request)
+    {
+        if ($barcode->customer_id){
+            alert()->error('این بارکد قبلا فروش رفته');
+            return back();
+        }
+        if ($request->isMethod('post')) {
+            $data=$request->validate([
+                'deliver'=>'nullable',
+                'customer_id'=>'required',
+                ]);
+
+             if(  $data['deliver']){
+                 $data['deliver']=$this->convert_date($data['deliver']);
+
+             }
+            $user=auth()->user();
+             $data['user_id'] =$user->id;
+            $barcode->update($data);
+            if ((!$barcode->customer_id) && $data['customer_id']){
+                $barcode->update(['sell'=>Carbon::now()]);
+                $barcode->transfers()->create([
+                    'from_id'=> $user->id,
+                    'type'=>'sell',
+                    'status'=>'1',
+                ]);
+                $barcode->update_store('0',$user->id);
+            }
+            alert()->success('بار کد با موفقیت فروش رفت ');
+            return redirect()->route('barcode.show',$barcode->id);
+        }
+        return view('admin.barcode.sell' ,compact('barcode'));
+
+    }
 
     /**
      * Update the specified resource in storage.
@@ -219,10 +279,17 @@ class BarcodeController extends Controller
         }
 
         $user=auth()->user();
-        $barcode->update($data);
-        if (!$barcode->customer_id && $data['customer_id']){
+
+        if ((!$barcode->customer_id) && $data['customer_id']){
             $barcode->update(['sell'=>Carbon::now()]);
+            $barcode->transfers()->create([
+                'from_id'=> $user->id,
+                'type'=>'sell',
+                'status'=>'1',
+            ]);
+            $barcode->update_store('0',$user->id);
         }
+        $barcode->update($data);
         if(isset($data['operators'])){
             $barcode->operators()->sync($data['operators']);
         }
@@ -235,9 +302,45 @@ class BarcodeController extends Controller
 
         }
         alert()->success('  بارکد با موفقیت به روز  شد ');
-        return back();
+        return redirect()->route('barcode.show',$barcode->id);
     }
+    public function record_voice(Request $request,Barcode $barcode){
 
+        if ($request->hasFile('voice')) {
+            $image = $request->file('voice');
+            $name_img = 'voice' . time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('/src/voice/'), $name_img);
+            $data['voice'] = $name_img;
+        }
+        $user=auth()->user();
+        $user->sounds()->create([
+            'barcode_id'=>$barcode->id,
+            'name'=>$data['voice'],
+            'location'=>$request->location
+        ]);
+        return response()->json([
+            'status' => '1',
+            ]);
+    }
+    public function remove_voice(Request $request){
+        $user=auth()->user();
+        if($request->sound_id){
+            $sound=Sound::find($request->sound_id);
+            if (file_exists( $filename=public_path() . '/src/voice/' . $sound->name )) {
+                File::delete($filename);
+                $sound->delete();
+                alert()->success('صدا با موفقیت حذف شد');
+            }
+
+        }else{
+
+            alert()->error('فایل یافت نشد ');
+        }
+        return back();
+
+
+
+    }
     /**
      * Remove the specified resource from storage.
      *
@@ -254,4 +357,5 @@ class BarcodeController extends Controller
                alert()->success('  بارکد با موفقیت به  حذف  شد ');
         return back();
     }
+
 }

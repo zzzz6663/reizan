@@ -259,6 +259,16 @@
                                     <a class="btn btn-warning" href="{{route('barcode.index',['all'=>1])}}">  نمایش موجودی  </a>
                                 </div>
                             </div>
+                            <div class="card-tools"  style="left:  27rem">
+                                <div class="btn-group-sm">
+                                    <a class="btn btn-danger" href="{{route('barcode.index',['store'=>1])}}">    داخل انبار  </a>
+                                </div>
+                            </div>
+                            <div class="card-tools"  style="left:  38rem">
+                                <div class="btn-group-sm">
+                                    <a class="btn btn-primary" href="{{route('barcode.index',['store'=>0])}}">    خارج انبار  </a>
+                                </div>
+                            </div>
                             <div class="card-tools"  style="left:  9rem">
                                 <div class="btn-group-sm">
                                     <a class="btn btn-info" href="{{route('barcode.create')}}">  بارکد جدید</a>
@@ -298,6 +308,7 @@
                                     <th>  ورژن </th>
                                     <th>  مشتری </th>
                                     <th>  اپراتور </th>
+                                    <th>  آخرین مقصد </th>
                                     <th>  توضیحات </th>
                                     <th>  اقدامات </th>
                                 </tr>
@@ -327,7 +338,14 @@
                                                 {{$operator->family}} -
                                             @endforeach
                                         </td>
+                                        <td>
+                                            @if ($barcode->lastuser)
+                                            {{$barcode->lastuser->name}}
+                                            {{$barcode->lastuser->family}}
+                                            @endif
+                                        </td>
                                         <td>{{$barcode->info}}</td>
+
                                         <td>
                                             @role('admin')
                                             <a class="btn btn-outline-secondary" href="{{route('barcode.show',$barcode->id)}}">مشاهده</a>

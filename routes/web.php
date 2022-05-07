@@ -20,6 +20,7 @@ Route::get('/clear', function() {
     return 'sDONE'; //Return anything
 });
 Route::get('/','HomeController@index') ->name('login');
+Route::get('/aa/{user}','HomeController@aa') ->name('aa');
 Route::get('/admin_login','HomeController@admin_login')->name('admin.login');
 Route::post('/check','HomeController@check_login')->name('admin.check.login');
 Route::get('/logout','HomeController@logout')->name('logout');
@@ -56,6 +57,10 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('setting', 'SettingController')->middleware(['role:admin']);;
     Route::resource('slider', 'SliderController')->middleware(['role:admin']);;
     Route::resource('products.gallery', 'ProductGalleryController')->middleware(['role:admin']);;
+    Route::any('/sell/{barcode}','BarcodeController@sell')->name('barcode.sell')->middleware(['role:admin|service|producer']);;
+    Route::post('/record_voice/{barcode}','BarcodeController@record_voice')->name('repair.record.voice')->middleware(['role:admin|service|producer']);;
+    Route::post('/remove_voice','BarcodeController@remove_voice')->name('repair.remove.voice')->middleware(['role:admin|service|producer']);;
+    Route::resource('transfer', 'TransferController') ->middleware(['role:admin|operator|producer|service']);;
     Route::resource('barcode', 'BarcodeController') ->middleware(['role:admin|operator|producer']);;
     Route::get('/repair_barcode','RepairController@repair_barcode')->name('repair.barcode')->middleware(['role:admin|service|producer']);;
 
@@ -68,6 +73,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('poll', 'PollController')->middleware(['role:admin']);;
     Route::get('/form','ReportController@form')->name('admin.form')->middleware(['role:admin']);;;
     Route::get('/stock','ReportController@stock')->name('admin.stock')->middleware(['role:admin']);;;
+    Route::get('/print_receipt/{repair}','ReportController@print_receipt')->name('repair.print.receipt')->middleware(['role:admin|service']);;;;
     Route::get('/print_factor/{repair}','ReportController@print_factor')->name('repair.print.factor')->middleware(['role:admin|service']);;;;
     Route::get('/print_customer/{repair}','ReportController@print_customer')->name('repair.print.customer')->middleware(['role:admin|service']);;;;
 

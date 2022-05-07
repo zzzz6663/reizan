@@ -172,22 +172,36 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <div class="form-group">
-                                                <label for="produce_from">  تاریخ تولید از</label>
+                                                <label for="produce_from">  تاریخ شروع از</label>
                                                 <input type="text" name="produce_from" value="{{request('produce_from')}}" class="form-control persian3" id="produce_from" placehrequest()er="تاریخ تولیداز را وارد کنید">
                                             </div>
 
                                         </div>
 
-                                        <div class="col-6">
+                                        <div class="col-4">
                                             <div class="form-group">
-                                                <label for="produce_till">  تاریخ تولید تا</label>
+                                                <label for="produce_till">  تاریخ شروع تا</label>
                                                 <input type="text" name="produce_till" value="{{request('produce_till')}}" class="form-control persian3" id="produce_till" placehrequest()er="تاریخ تولید تا را وارد کنید">
                                             </div>
 
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <label for="color">نمودار برحسب
+
+                                                </label>
+                                                <select class="form-control" name="amams_status" id="customer">
+                                                    <option selected value="created_at">ثبت شده</option>
+                                                    <option  {{request('amams_status')=='updated_at'?'selected':''}} value="updated_at">به روز شده</option>
+                                                    <option  {{request('amams_status')=='deliver'?'selected':''}} value="deliver">تحویل</option>
+                                                    <option  {{request('amams_status')=='sell'?'selected':''}} value="sell">فروش</option>
+                                                    <option  {{request('amams_status')=='produce'?'selected':''}} value="produce">تولید</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-6">
                                             <div class="form-group">
                                                 <label for="deliver_from">  تاریخ خروج از</label>
                                                 <input type="text" name="deliver_from" value="{{request('deliver_from')}}" class="form-control persian3" id="deliver_from" placehrequest()er="تاریخ خروج از را وارد کنید">
@@ -198,7 +212,7 @@
                                                 <label for="deliver_till">  تاریخ خروج تا</label>
                                                 <input type="text" name="deliver_till" value="{{request('deliver_till')}}" class="form-control persian3" id="deliver_till" placehrequest()er="تاریخ خروج تا را وارد کنید">
                                             </div>
-                                        </div>
+                                        </div> --}}
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="color">مشتری  </label>
@@ -210,6 +224,7 @@
                                                 </select>
                                             </div>
                                         </div>
+
                                         <div class="col-4">
                                             <div class="form-group">
                                                 <label for="ostan">       استان</label>
@@ -332,7 +347,10 @@
                                     <th>کد </th>
                                     <th>محصول </th>
                                     <th>تاریخ تولید </th>
+                                    <th>تاریخ فروش </th>
+                                    <th>تاریخ به روز رسانی</th>
                                     <th>تاریخ خروج </th>
+                                    <th>تاریخ ثبت </th>
                                     <th>  ورژن </th>
                                     <th>  رنگ </th>
                                     <th>  مشتری </th>
@@ -346,11 +364,37 @@
                                         <td>{{$loop->iteration}}</td>
                                         <td>
                                             <a class="text-success" href="{{route('barcode.show',$barcode->id)}}">{{$barcode->code}}</a>
+                                            {{$barcode->id}}
+                                            {{$barcode->user->name}}
                                         </td>
 
                                         <td>{{isset($barcode->product)?$barcode->product->name:''}}</td>
-                                        <td>{{\Morilog\Jalali\Jalalian::forge($barcode->produce)}}</td>
-                                        <td>{{\Morilog\Jalali\Jalalian::forge($barcode->deliver)}}</td>
+                                        <td>{{\Morilog\Jalali\Jalalian::forge($barcode->produce)}}
+                                        </td>
+                                        <td>
+                                            @if ($barcode->sell)
+                                            {{\Morilog\Jalali\Jalalian::forge($barcode->sell)}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($barcode->updated_at)
+                                            {{\Morilog\Jalali\Jalalian::forge($barcode->updated_at)}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($barcode->deliver)
+                                            {{\Morilog\Jalali\Jalalian::forge($barcode->deliver)}}---
+
+                                            @endif
+
+                                        </td>
+                                        <td>
+                                            @if ($barcode->created_at)
+                                            {{\Morilog\Jalali\Jalalian::forge($barcode->created_at)}}
+
+                                            @endif
+
+                                        </td>
                                         <td>  {{implode(', ',$barcode->colores->pluck('name')->toArray())}}</td>
                                         <td>{{isset($barcode->version)?$barcode->version->name:'----'}}</td>
                                         <td>{{isset($barcode->customer)?$barcode->customer->name.' '.$barcode->customer->family:'----'}}</td>
@@ -384,6 +428,104 @@
                             <div class="pagi">
                                 {{ $barcodes->appends(Request::all())->links('admin.pagination') }}
                             </div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <br>
+                            <br>
+
+                            <div id="chart">
+
+                            </div>
+                            <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+                            <script type="text/javascript">
+                               var options = {
+          series: [{
+          name: 'Inflation',
+          data:{{json_encode($blist)}}
+        }],
+          chart: {
+          height: 350,
+          type: 'bar',
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            dataLabels: {
+              position: 'top', // top, center, bottom
+            },
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return val + "عدد";
+          },
+          offsetY: -20,
+          style: {
+            fontSize: '12px',
+            colors: ["#304758"]
+          }
+        },
+
+        xaxis: {
+          categories:  {!! json_encode($date_chart) !!},
+          position: 'bottom',
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false
+          },
+          crosshairs: {
+            fill: {
+              type: 'gradient',
+              gradient: {
+                colorFrom: '#D8E3F0',
+                colorTo: '#BED1E6',
+                stops: [0, 100],
+                opacityFrom: 0.4,
+                opacityTo: 0.5,
+              }
+            }
+          },
+          tooltip: {
+            enabled: true,
+          }
+        },
+        yaxis: {
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false,
+          },
+          labels: {
+            show: false,
+            formatter: function (val) {
+              return val + "عدد";
+            }
+          }
+
+        },
+        title: {
+          text: 'نمودار تولید بارکد',
+          floating: true,
+          offsetY: 330,
+          align: 'center',
+          style: {
+            color: '#444'
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+
+
+                            </script>
 
                         </div>
                     </div>
