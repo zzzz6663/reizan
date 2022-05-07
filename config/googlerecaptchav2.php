@@ -46,7 +46,7 @@ return [
     | Google reCAPTCHA host name, https://www.google.com/recaptcha/admin
     |
     */
-    'host_name' => 'netista.ir',
+    'host_name' => 'reizan.ir',
     /*
     |--------------------------------------------------------------------------
     | Secret Key
